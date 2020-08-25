@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.business.outapplication.mapper.BusinessOutApplicationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.business.outapplication.entity.BusinessOutApplication">
+        <id column="id" property="id" />
+        <result column="user" property="user" />
+        <result column="one_time" property="oneTime" />
+        <result column="two_time" property="twoTime" />
+        <result column="three_time" property="threeTime" />
+        <result column="four_time" property="fourTime" />
+        <result column="nowstep" property="nowstep" />
+        <result column="application_type" property="applicationType" />
+        <result column="file" property="file" />
+        <result column="beizhu" property="beizhu" />
+        <result column="cls" property="cls" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", user AS "user", one_time AS "oneTime", two_time AS "twoTime", three_time AS "threeTime", four_time AS "fourTime", nowstep AS "nowstep", application_type AS "applicationType", file AS "file", beizhu AS "beizhu",cls AS "cls"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.business.outapplication.model.result.BusinessOutApplicationResult" parameterType="cn.stylefeng.guns.business.outapplication.model.params.BusinessOutApplicationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from business_out_application where 1 = 1
+            <if test="paramCondition.applicationType != null and paramCondition.applicationType != ''">
+                and application_type like CONCAT('%',#{paramCondition.applicationType},'%')
+            </if>
+            <if test="paramCondition.file != null and paramCondition.file != ''">
+                and file like CONCAT('%',#{paramCondition.file},'%')
+            </if>
+            <if test="paramCondition.fourTime != null and paramCondition.fourTime != ''">
+                and four_time like CONCAT('%',#{paramCondition.fourTime},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.nowstep != null and paramCondition.nowstep != ''">
+                and nowstep like CONCAT('%',#{paramCondition.nowstep},'%')
+            </if>
+            <if test="paramCondition.oneTime != null and paramCondition.oneTime != ''">
+                and one_time like CONCAT('%',#{paramCondition.oneTime},'%')
+            </if>
+            <if test="paramCondition.threeTime != null and paramCondition.threeTime != ''">
+                and three_time like CONCAT('%',#{paramCondition.threeTime},'%')
+            </if>
+            <if test="paramCondition.twoTime != null and paramCondition.twoTime != ''">
+                and two_time like CONCAT('%',#{paramCondition.twoTime},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+            <if test="paramCondition.cls != null and paramCondition.cls != ''">
+                and user like CONCAT('%',#{paramCondition.cls},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.business.outapplication.model.params.BusinessOutApplicationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from business_out_application where 1 = 1
+            <if test="paramCondition.applicationType != null and paramCondition.applicationType != ''">
+                and application_type like CONCAT('%',#{paramCondition.applicationType},'%')
+            </if>
+            <if test="paramCondition.file != null and paramCondition.file != ''">
+                and file like CONCAT('%',#{paramCondition.file},'%')
+            </if>
+            <if test="paramCondition.beizhu != null and paramCondition.beizhu != ''">
+                and beizhu like CONCAT('%',#{paramCondition.beizhu},'%')
+            </if>
+            <if test="paramCondition.fourTime != null and paramCondition.fourTime != ''">
+                and four_time like CONCAT('%',#{paramCondition.fourTime},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.nowstep != null and paramCondition.nowstep != ''">
+                and nowstep like CONCAT('%',#{paramCondition.nowstep},'%')
+            </if>
+            <if test="paramCondition.oneTime != null and paramCondition.oneTime != ''">
+                and one_time like CONCAT('%',#{paramCondition.oneTime},'%')
+            </if>
+            <if test="paramCondition.threeTime != null and paramCondition.threeTime != ''">
+                and three_time like CONCAT('%',#{paramCondition.threeTime},'%')
+            </if>
+            <if test="paramCondition.twoTime != null and paramCondition.twoTime != ''">
+                and two_time like CONCAT('%',#{paramCondition.twoTime},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+            <if test="paramCondition.cls != null and paramCondition.cls != ''">
+                and user like CONCAT('%',#{paramCondition.cls},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.business.outapplication.model.result.BusinessOutApplicationResult" parameterType="cn.stylefeng.guns.business.outapplication.model.params.BusinessOutApplicationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from business_out_application where 1 = 1
+            <if test="paramCondition.applicationType != null and paramCondition.applicationType != ''">
+                and application_type like CONCAT('%',#{paramCondition.applicationType},'%')
+            </if>
+            <if test="paramCondition.file != null and paramCondition.file != ''">
+                and file like CONCAT('%',#{paramCondition.file},'%')
+            </if>
+            <if test="paramCondition.beizhu != null and paramCondition.beizhu != ''">
+                and beizhu like CONCAT('%',#{paramCondition.beizhu},'%')
+            </if>
+            <if test="paramCondition.fourTime != null and paramCondition.fourTime != ''">
+                and four_time like CONCAT('%',#{paramCondition.fourTime},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.nowstep != null and paramCondition.nowstep != ''">
+                and nowstep like CONCAT('%',#{paramCondition.nowstep},'%')
+            </if>
+            <if test="paramCondition.oneTime != null and paramCondition.oneTime != ''">
+                and one_time like CONCAT('%',#{paramCondition.oneTime},'%')
+            </if>
+            <if test="paramCondition.threeTime != null and paramCondition.threeTime != ''">
+                and three_time like CONCAT('%',#{paramCondition.threeTime},'%')
+            </if>
+            <if test="paramCondition.twoTime != null and paramCondition.twoTime != ''">
+                and two_time like CONCAT('%',#{paramCondition.twoTime},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+            <if test="paramCondition.cls != null and paramCondition.cls != ''">
+                and user like CONCAT('%',#{paramCondition.cls},'%')
+            </if>
+        ORDER BY id DESC
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.business.outapplication.model.params.BusinessOutApplicationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from business_out_application where 1 = 1
+            <if test="paramCondition.applicationType != null and paramCondition.applicationType != ''">
+                and application_type like CONCAT('%',#{paramCondition.applicationType},'%')
+            </if>
+            <if test="paramCondition.file != null and paramCondition.file != ''">
+                and file like CONCAT('%',#{paramCondition.file},'%')
+            </if>
+            <if test="paramCondition.beizhu != null and paramCondition.beizhu != ''">
+                and beizhu like CONCAT('%',#{paramCondition.beizhu},'%')
+            </if>
+            <if test="paramCondition.fourTime != null and paramCondition.fourTime != ''">
+                and four_time like CONCAT('%',#{paramCondition.fourTime},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.nowstep != null and paramCondition.nowstep != ''">
+                and nowstep like CONCAT('%',#{paramCondition.nowstep},'%')
+            </if>
+            <if test="paramCondition.oneTime != null and paramCondition.oneTime != ''">
+                and one_time like CONCAT('%',#{paramCondition.oneTime},'%')
+            </if>
+            <if test="paramCondition.threeTime != null and paramCondition.threeTime != ''">
+                and three_time like CONCAT('%',#{paramCondition.threeTime},'%')
+            </if>
+            <if test="paramCondition.twoTime != null and paramCondition.twoTime != ''">
+                and two_time like CONCAT('%',#{paramCondition.twoTime},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+            <if test="paramCondition.cls != null and paramCondition.cls != ''">
+                and user like CONCAT('%',#{paramCondition.cls},'%')
+            </if>
+    </select>
+
+</mapper>

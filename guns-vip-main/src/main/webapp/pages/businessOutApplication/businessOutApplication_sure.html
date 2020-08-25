@@ -1,0 +1,50 @@
+@layout("/common/_form.html",{js:["/assets/businessOutApplication/businessOutApplication_sure.js"]}){
+<form class="layui-form" id="businessOutApplicationForm" lay-filter="businessOutApplicationForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">确认抵达</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <input id="id" name="id" type="hidden"/>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">出发时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="cfsj" name="cfsj" type="text" class="layui-input" placeholder="yyyy-MM-dd HH:mm:ss" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">出发地点<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="cfdd" name="cfdd" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">抵达时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="ddsj" name="ddsj" type="text" class="layui-input" placeholder="yyyy-MM-dd HH:mm:ss" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">抵达地点<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="dddd" name="dddd" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">身体状况<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="stzk" name="stzk" placeholder="请输入" value="一切正常" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}

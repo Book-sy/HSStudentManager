@@ -1,0 +1,81 @@
+@layout("/common/_container.html",{js:["/assets/businessOutApplication/businessOutApplication.js"]}){
+<style>
+    .p1{text-indent: 2em;}
+</style>
+<div class="layui-body-header">
+    <span class="layui-body-header-title">管理</span>
+</div>
+
+<div class="layui-fluid">
+    <blockquote class="layui-elem-quote layui-text">
+        必要说明：</br>
+        <p class="p1">第一阶段：同学上传文件，确认信息，处于待审阅状态，同时禁止修改。不合格则为待修改状态。</br></p>
+        <p class="p1">第二阶段：辅导员确定接收，文件合格，上报学校，处于待批复状态</br></p>
+        <p class="p1">第三阶段：学校批准，允许出行，处于待确认状态。否则处于已拒绝状态。</br></p>
+        <p class="p1">第四阶段：同学确认已按时出行，按时抵达，身体状况暂无异常，行程状态已结束</p>
+    </blockquote>
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input id="condition" class="layui-input" type="text" placeholder="名称"/>
+                            </div>
+                            <div class="layui-inline">
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索</button>
+                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>添加</button>
+                                <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="layui-table" id="businessOutApplicationTable" lay-filter="businessOutApplicationTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="jindu">
+    {{# if(d.nowstep=== 0) { }}
+    <span style="color: #ffaa00; ">待审阅</span>
+    <a class="layui-btn layui-btn-xs" lay-event="sy">审阅</a>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="dh">打回</a>
+    {{# } else if(d.nowstep== 1) { }}
+    <span style="color: #00f7ff; ">待批复</span>
+    <a class="layui-btn layui-btn-xs" lay-event="pf">批复</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="jj">拒绝</a>
+    {{# } else if(d.nowstep== 2) { }}
+    <span style="color: #0073ff; ">待确认</span>
+    {{# } else if(d.nowstep== 3) { }}
+    <span style="color: #000000; ">已结束</span>
+    {{# } else if(d.nowstep== 4) { }}
+    <span style="color: #ff0000; ">待修改</span>
+    {{# } else if(d.nowstep== 5) { }}
+    <span style="color: #373737; ">已拒绝</span>
+    {{# } else if(d.nowstep== 6) { }}
+    <span style="color: #262323; ">已取消</span>
+    {{# } }}
+</script>
+
+<script type="text/html" id="type">
+    {{# if(d.applicationType==0) { }}
+    非湖北非京出行
+    {{# } else if(d.applicationType==1) { }}
+    离京申请
+    {{# } else if(d.applicationType==2) { }}
+    返京申请
+    {{# } }}
+</script>
+
+<script type="text/html" id="file">
+    <a class="layui-btn layui-btn-xs layui-btn" lay-event="gx">更新</a>
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="download">下载</a>
+</script>
+
+<script type="text/html" id="tableBar">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="edit">修改</a>
+    <a class="layui-btn layui-btn-danger layui-btn-xs" lay-event="delete">删除</a>
+</script>
+@}

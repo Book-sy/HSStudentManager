@@ -1,0 +1,157 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.business.dailyreport.mapper.BusinessDailyReportMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.business.dailyreport.entity.BusinessDailyReport">
+        <id column="id" property="id" />
+        <result column="user" property="user" />
+        <result column="firstdate" property="firstdate" />
+        <result column="time" property="time" />
+        <result column="lastdate" property="lastdate" />
+        <result column="changes" property="changes" />
+        <result column="other" property="other" />
+        <result column="classes" property="classes" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", user AS "user", xh AS "xh", firstdate AS "firstdate", classes AS "classes",time AS "time", lastdate AS "lastdate", changes AS "changes", other AS "other"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.business.dailyreport.model.result.BusinessDailyReportResult" parameterType="cn.stylefeng.guns.business.dailyreport.model.params.BusinessDailyReportParam">
+        select
+        <include refid="Base_Column_List"/>
+        from business_daily_report where 1 = 1
+            <if test="paramCondition.changes != null and paramCondition.changes != ''">
+                and changes like CONCAT('%',#{paramCondition.changes},'%')
+            </if>
+            <if test="paramCondition.firstdate != null and paramCondition.firstdate != ''">
+                and firstdate like CONCAT('%',#{paramCondition.firstdate},'%')
+            </if>
+            <if test="paramCondition.xh != null and paramCondition.xh != ''">
+                and xh like CONCAT('%',#{paramCondition.xh},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.lastdate != null and paramCondition.lastdate != ''">
+                and lastdate like CONCAT('%',#{paramCondition.lastdate},'%')
+            </if>
+            <if test="paramCondition.other != null and paramCondition.other != ''">
+                and other like CONCAT('%',#{paramCondition.other},'%')
+            </if>
+            <if test="paramCondition.time != null and paramCondition.time != ''">
+                and time like CONCAT('%',#{paramCondition.time},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+            <if test="paramCondition.classes != null and paramCondition.classes != ''">
+                and user like CONCAT('%',#{paramCondition.classes},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.business.dailyreport.model.params.BusinessDailyReportParam">
+        select
+        <include refid="Base_Column_List"/>
+        from business_daily_report where 1 = 1
+            <if test="paramCondition.changes != null and paramCondition.changes != ''">
+                and changes like CONCAT('%',#{paramCondition.changes},'%')
+            </if>
+            <if test="paramCondition.xh != null and paramCondition.xh != ''">
+                and xh like CONCAT('%',#{paramCondition.xh},'%')
+            </if>
+            <if test="paramCondition.firstdate != null and paramCondition.firstdate != ''">
+                and firstdate like CONCAT('%',#{paramCondition.firstdate},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.lastdate != null and paramCondition.lastdate != ''">
+                and lastdate like CONCAT('%',#{paramCondition.lastdate},'%')
+            </if>
+            <if test="paramCondition.other != null and paramCondition.other != ''">
+                and other like CONCAT('%',#{paramCondition.other},'%')
+            </if>
+            <if test="paramCondition.time != null and paramCondition.time != ''">
+                and time like CONCAT('%',#{paramCondition.time},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+            <if test="paramCondition.classes != null and paramCondition.classes != ''">
+                and user like CONCAT('%',#{paramCondition.classes},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.business.dailyreport.model.result.BusinessDailyReportResult" parameterType="cn.stylefeng.guns.business.dailyreport.model.params.BusinessDailyReportParam">
+        select
+        <include refid="Base_Column_List"/>
+        from business_daily_report where 1 = 1
+            <if test="paramCondition.changes != null and paramCondition.changes != ''">
+                and changes like CONCAT('%',#{paramCondition.changes},'%')
+            </if>
+            <if test="paramCondition.firstdate != null and paramCondition.firstdate != ''">
+                and firstdate like CONCAT('%',#{paramCondition.firstdate},'%')
+            </if>
+            <if test="paramCondition.xh != null and paramCondition.xh != ''">
+                and xh like CONCAT('%',#{paramCondition.xh},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.lastdate != null and paramCondition.lastdate != ''">
+                and lastdate like CONCAT('%',#{paramCondition.lastdate},'%')
+                and lastdate = to_days(#{paramCondition.lastdate});
+            </if>
+            <if test="paramCondition.other != null and paramCondition.other != ''">
+                and other like CONCAT('%',#{paramCondition.other},'%')
+            </if>
+            <if test="paramCondition.time != null and paramCondition.time != ''">
+                and time like CONCAT('%',#{paramCondition.time},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+            <if test="paramCondition.classes != null and paramCondition.classes != ''">
+                and user like CONCAT('%',#{paramCondition.classes},'%')
+            </if>
+        and (datediff ( lastdate , #{paramCondition.seacher} ) = 0 OR datediff ( firstdate , #{paramCondition.seacher} ) = 0)
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.business.dailyreport.model.params.BusinessDailyReportParam">
+        select
+        <include refid="Base_Column_List"/>
+        from business_daily_report where 1 = 1
+            <if test="paramCondition.changes != null and paramCondition.changes != ''">
+                and changes like CONCAT('%',#{paramCondition.changes},'%')
+            </if>
+            <if test="paramCondition.firstdate != null and paramCondition.firstdate != ''">
+                and firstdate like CONCAT('%',#{paramCondition.firstdate},'%')
+            </if>
+            <if test="paramCondition.xh != null and paramCondition.xh != ''">
+                and xh like CONCAT('%',#{paramCondition.xh},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.lastdate != null and paramCondition.lastdate != ''">
+                and lastdate like CONCAT('%',#{paramCondition.lastdate},'%')
+            </if>
+            <if test="paramCondition.other != null and paramCondition.other != ''">
+                and other like CONCAT('%',#{paramCondition.other},'%')
+            </if>
+            <if test="paramCondition.time != null and paramCondition.time != ''">
+                and time like CONCAT('%',#{paramCondition.time},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+            <if test="paramCondition.classes != null and paramCondition.classes != ''">
+                and user like CONCAT('%',#{paramCondition.classes},'%')
+            </if>
+    </select>
+
+</mapper>

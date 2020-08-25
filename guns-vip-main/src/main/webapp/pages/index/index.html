@@ -1,0 +1,450 @@
+@layout("/common/_container.html",{js:["/assets/index/index.js"]}){
+
+<style>
+    /** 卡片轮播图样式 */
+    .admin-carousel .layui-carousel-ind {
+        position: absolute;
+        top: -41px;
+        text-align: right;
+    }
+
+    .admin-carousel .layui-carousel-ind ul {
+        background: 0 0;
+    }
+
+    .admin-carousel .layui-carousel-ind li {
+        background-color: #e2e2e2;
+    }
+
+    .admin-carousel .layui-carousel-ind li.layui-this {
+        background-color: #999;
+    }
+
+    /** 广告位轮播图 */
+    .admin-news .layui-carousel-ind {
+        height: 45px;
+    }
+
+    .admin-news a {
+        display: block;
+        line-height: 60px;
+        text-align: center;
+    }
+
+</style>
+
+<!-- 加载动画，移除位置在common.js中 -->
+<div class="page-loading">
+    <div class="ball-loader">
+        <span></span><span></span><span></span><span></span>
+    </div>
+</div>
+
+<!-- 正文开始 -->
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+            <div class="layui-card">
+                <div id="detaa" class="layui-card-header">
+                    每日一报<span class="layui-badge layui-bg-black pull-right">日</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="lay-big-font">
+                        <button id="bao" type="button" class="layui-btn layui-btn-primary">提交修改</button>
+                    </p>
+                    <p>总计报告量<span class="pull-right">32万+ <i class="layui-icon layui-icon-flag"></i></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    申请表递交<span class="layui-badge layui-bg-black pull-right">单</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="lay-big-font">
+                        <button id="application" type="button" class="layui-btn layui-btn-primary">开始申请</button>
+                    </p>
+                    <p>总计递交单数<span class="pull-right">5万+ <i class="layui-icon layui-icon-note"></i></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-col-xs12 layui-col-sm6 layui-col-md4">
+            <div class="layui-card">
+                <div class="layui-card-header">
+                    查看申请进度<span class="layui-badge layui-bg-black pull-right">次</span>
+                </div>
+                <div class="layui-card-body">
+                    <p class="lay-big-font">
+                        <button type="button" class="layui-btn layui-btn-disabled">查看进度</button>
+                    </p>
+                    <p>总计访问量<span class="pull-right">5万+ <i class="layui-icon layui-icon-notice"></i></span></p>
+                </div>
+            </div>
+        </div>
+        <div class="layui-row layui-col-space15">
+            <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+                <div class="layui-card">
+                    <div class="layui-card-body">
+                        <span class="layui-body-header-title">我的申请</span>
+                        <table class="layui-table" id="Index" lay-filter="Index"></table>
+                    </div>
+                </div>
+            </div>
+        </div>
+        @if(shiro.hasPermission("/bz")){
+            <div class="layui-row layui-col-space15">
+                <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+                    <div class="layui-card">
+                        <div class="layui-card-body">
+                            <span class="layui-body-header-title">班级申请</span>
+                            <table class="layui-table" id="bz" lay-filter="bz"></table>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        @}
+    </div>
+
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-lg8 layui-col-md7">
+            <div class="layui-card">
+                <div class="layui-card-header">更新日志</div>
+                <div class="layui-card-body">
+                    <ul class="layui-timeline">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    ALPHA-1.3.1
+                                    <small>小BUG修复</small>&emsp;
+                                    <span class="layui-badge-rim">2020-8-14</span>
+                                </h3>
+                                <ul>
+                                    <li>外出申请 界面点击删除前端无响应但请求正常</li>
+                                    <li>还有n个BUG待开发~</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="layui-timeline">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    ALPHA-1.3.0
+                                    <small>班长主页更新</small>&emsp;
+                                    <span class="layui-badge-rim">2020-8-14</span>
+                                </h3>
+                                <ul>
+                                    <li>班长可以在主页查看自己班所有同学的申请了</li>
+                                    <li>还有n个BUG待开发~</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="layui-timeline">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    ALPHA-1.2.3
+                                    <small>界面表单更新</small>&emsp;
+                                    <span class="layui-badge-rim">2020-8-14</span>
+                                </h3>
+                                <ul>
+                                    <li>外出申请界面增加班级列</li>
+                                    <li>修复“已拒绝”文字显示BUG</li>
+                                    <li>还有n个BUG待开发~</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                    <ul class="layui-timeline">
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    ALPHA-1.2.2
+                                    <small>修复BUG更新</small>&emsp;
+                                    <span class="layui-badge-rim">2020-8-10</span>
+                                </h3>
+                                <ul>
+                                    <li>一报汇总增加一键无变化功能</li>
+                                    <li>未报告名单 增加上报功能</li>
+                                    <li>修复一报汇总界面字体小BUG</li>
+                                    <li>还有n个BUG待开发~</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    ALPHA-1.2.1
+                                    <small>修复BUG更新</small>&emsp;
+                                    <span class="layui-badge-rim">2020-8-9</span>
+                                </h3>
+                                <ul>
+                                    <li>修复一报汇总界面按钮缩进BUG</li>
+                                    <li>调整登录提示字体文字信息</li>
+                                    <li>外出申请 修改按钮提示界面前端更新</li>
+                                    <li>每日一报菜单数据库检索采用学号(这个是因为发现有两个叫张*的...)</li>
+                                    <li>还有n个BUG待开发~</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    ALPHA-1.2.0
+                                    <small>每日一报更新</small>&emsp;
+                                    <span class="layui-badge-rim">2020-8-8</span>
+                                </h3>
+                                <ul>
+                                    <li>重大更新！！邮件系统DEMO测试中，准备上新邮件提醒！敬请期待！</li>
+                                    <li>右侧TAB栏位视觉体验更新</li>
+                                    <li>一报汇总页面制作完成</li>
+                                    <li>外出申请实现默认数据库排序，修复分页排序BUG</li>
+                                    <li>修复登录日志无法记录BUG</li>
+                                    <li>还有n个BUG待开发~</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    ALPHA-1.1.0
+                                    <small>移动申请细节更新</small>&emsp;
+                                    <span class="layui-badge-rim">2020-8-5</span>
+                                </h3>
+                                <ul>
+                                    <li>"确认"时 需提供到达时间、 到达地点、出发时间、出发地点</li>
+                                    <li>“申请表递交”页面提供3种样例表与3种空白表下载</li>
+                                    <li>外出申请 实现表格倒序</li>
+                                    <li>修复 表单中按钮缩进按不下BUG</li>
+                                    <li>还有n个BUG待开发~</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    ALPHA-1.0.0
+                                    <small>第一个ALPHA版本</small>&emsp;
+                                    <span class="layui-badge-rim">2020-8-4</span>
+                                </h3>
+                                <ul>
+                                    <li>8.4日，头秃的第五天</li>
+                                    <li>已经制作完此主页</li>
+                                    <li>初步实现每日一报业务功能</li>
+                                    <li>初步实现外出申请业务功能</li>
+                                    <li>初步实现每班每日一报菜单查看</li>
+                                    <li>还有n个BUG待开发~</li>
+                                </ul>
+                            </div>
+                        </li>
+                        <li class="layui-timeline-item">
+                            <i class="layui-icon layui-timeline-axis">&#xe63f;</i>
+                            <div class="layui-timeline-content layui-text">
+                                <h3 class="layui-timeline-title">
+                                    开始开发
+                                    <small>元气满满的第一天</small>&emsp;
+                                    <span class="layui-badge-rim">2020-7-31</span>
+                                </h3>
+                                <ul>
+                                    <li>就在调试框架和做构架中过去了</li>
+                                </ul>
+                            </div>
+                        </li>
+                    </ul>
+                </div>
+            </div> <!--更新日志-->
+        </div>
+        <div class="layui-col-lg4 layui-col-md5">
+            <div class="layui-card">
+                <div class="layui-card-header">必要说明</div>
+                <div class="layui-card-body">
+                    <blockquote class="layui-elem-quote">新增必要说明：此条至关重要，目前更新为8.10日，请8.10日之前使用过的清楚一遍游览器缓存！(chrome快捷键为：Ctrl+Shift+Del，其他游览器自行探索)</blockquote>
+                    <blockquote class="layui-elem-quote">1、此系统由HS基于GUNS二次开发</blockquote>
+                    <blockquote class="layui-elem-quote">2、申请表递交包括：非湖北非京出行、离京申请、返京申请</blockquote>
+                    <blockquote class="layui-elem-quote">3、如有任何反馈信息，欢迎联系QQ：1750359613,可以是 BUG、建议、意见、体验、甚至是闲聊~</blockquote>
+                    <blockquote class="layui-elem-quote layui-text">
+                        必要说明：</br>
+                        <p class="p1">第一阶段：同学上传文件，确认信息，处于待审阅状态，同时禁止修改。不合格则为待修改状态。</br></p>
+                        <p class="p1">第二阶段：辅导员确定接收，文件合格，上报学校，处于待批复状态</br></p>
+                        <p class="p1">第三阶段：学校批准，允许出行，处于待确认状态。否则处于已拒绝状态。</br></p>
+                        <p class="p1">第四阶段：同学确认已按时出行，按时抵达，身体状况暂无异常，行程状态已结束</p>
+                    </blockquote>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">开发者名单</div>
+                <div class="layui-card-body">
+                    <table class="layui-table layui-text">
+                        <colgroup>
+                            <col width="100">
+                            <col>
+                        </colgroup>
+                        <tbody>
+                        <tr>
+                            <td>项目经理</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>架构师</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>前端开发</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>后端开发</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>软件设计</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>客服人员</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>推广人员</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>创意人员</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>美工</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>测试人员</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>需求人员</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>数据库</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>运维人员</td>
+                            <td>韩硕</td>
+                        </tr>
+                        <tr>
+                            <td>人猿</td>
+                            <td>韩硕</td>
+                        </tr>
+                        </tbody>
+                    </table>
+                </div>
+            </div>
+
+            <div class="layui-card">
+                <div class="layui-card-header">联系我</div>
+                <div class="layui-card-body">
+                    <div class="layui-carousel admin-carousel admin-news">
+                        <div carousel-item>
+                            <div>
+                                <a href="http://wpa.qq.com/msgrd?v=3&uin=1750359613&site=qq&menu=yes" target="_blank"
+                                   class="layui-bg-green">
+                                    韩硕 - 腾讯QQ：1750359613点击一键添加
+                                </a>
+                            </div>
+                            <div>
+                                <a href="http://wpa.qq.com/msgrd?v=3&uin=1750359613&site=qq&menu=yes" target="_blank"
+                                   class="layui-bg-cyan">
+                                    韩硕 - 微信：1750359613
+                                </a>
+                            </div>
+                            <div>
+                                <a href="http://wpa.qq.com/msgrd?v=3&uin=1750359613&site=qq&menu=yes" target="_blank"
+                                   class="layui-bg-blue">
+                                    韩硕 - GitHub：暂不公布！
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+<script type="text/html" id="jindu">
+    {{# if(d.nowstep=== 0) { }}
+    <span style="color: #ffaa00; ">待审阅</span>
+    {{# } else if(d.nowstep== 1) { }}
+    <span style="color: #00f7ff; ">待批复</span>
+    {{# } else if(d.nowstep== 2) { }}
+    <span style="color: #0073ff; ">待确认</span>
+    <a class="layui-btn layui-btn-xs" lay-event="qr">确认</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="qx">取消</a>
+    {{# } else if(d.nowstep== 3) { }}
+    <span style="color: #000000; ">已结束</span>
+    {{# } else if(d.nowstep== 4) { }}
+    <span style="color: #ff0000; ">待修改</span>
+    <a class="layui-btn layui-btn-xs layui-btn-warm" lay-event="xg">修改</a>
+    <a class="layui-btn layui-btn-xs layui-btn-danger" lay-event="qx">取消</a>
+    {{# } else if(d.nowstep== 5) { }}
+    <span style="color: #373737; ">已拒绝</span>
+    {{# } else if(d.nowstep== 6) { }}
+    <span style="color: #262323; ">已取消</span>
+    {{# } }}
+</script>
+
+<script type="text/html" id="bzjd">
+    {{# if(d.nowstep=== 0) { }}
+    <span style="color: #ffaa00; ">待审阅</span>
+    {{# } else if(d.nowstep== 1) { }}
+    <span style="color: #00f7ff; ">待批复</span>
+    {{# } else if(d.nowstep== 2) { }}
+    <span style="color: #0073ff; ">待确认</span>
+    {{# } else if(d.nowstep== 3) { }}
+    <span style="color: #000000; ">已结束</span>
+    {{# } else if(d.nowstep== 4) { }}
+    <span style="color: #ff0000; ">待修改</span>
+    {{# } else if(d.nowstep== 5) { }}
+    <span style="color: #373737; ">已拒绝</span>
+    {{# } else if(d.nowstep== 6) { }}
+    <span style="color: #262323; ">已取消</span>
+    {{# } }}
+</script>
+
+<script type="text/html" id="type">
+    {{# if(d.applicationType==0) { }}
+    非湖北非京出行
+    {{# } else if(d.applicationType==1) { }}
+    离京申请
+    {{# } else if(d.applicationType==2) { }}
+    返京申请
+    {{# } }}
+</script>
+
+<script type="text/html" id="file">
+    <a class="layui-btn layui-btn-xs layui-btn-normal" lay-event="download">下载</a>
+</script>
+<!-- js部分 -->
+@/* 加入contextPath属性和session超时的配置 */
+<script type="text/javascript">
+    var Feng = {
+        ctxPath: "${ctxPath}",
+        version: '${constants.getReleaseVersion()}'
+    };
+</script>
+
+
+<script>
+</script>
+@}
