@@ -122,7 +122,7 @@ layui.use(['table', 'admin', 'ax', 'func'], function () {
         BusinessDailyReport.exportExcel();
     });
 
-    // 工具条点击事件
+    // 工具条点击事件1
     table.on('tool(' + BusinessDailyReport.tableId + ')', function (obj) {
         var data = obj.data;
         var layEvent = obj.event;
