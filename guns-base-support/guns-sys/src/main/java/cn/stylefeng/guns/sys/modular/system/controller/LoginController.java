@@ -16,22 +16,29 @@
 package cn.stylefeng.guns.sys.modular.system.controller;
 
 import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.auth.service.AuthService;
 import cn.stylefeng.guns.base.consts.ConstantsContext;
 import cn.stylefeng.guns.sys.core.auth.cache.SessionManager;
 import cn.stylefeng.guns.sys.core.exception.InvalidKaptchaException;
+import cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
+import cn.stylefeng.roses.core.mutidatasource.DataSourceContextHolder;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.reqres.response.SuccessResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.RequestEmptyException;
+import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import javax.servlet.http.HttpServletRequest;
@@ -128,6 +135,46 @@ public class LoginController extends BaseController {
         String token = authService.login(username, password);
 
         return new SuccessResponseData(token);
+    }
+
+    /**
+     * 利用已有的token进行登录（一般用在oauth登录）
+     *
+     * @author fengshuonan
+     * @Date 2018/12/23 5:42 PM
+     */
+    @RequestMapping(value = "/sysTokenLogin")
+    public String sysTokenLogin(@RequestParam(value = "token", required = false) String token, Model model) {
+        if (ToolUtil.isNotEmpty(token)) {
+
+            //从session获取用户信息，没有就是token无效
+            LoginUser user = sessionManager.getSession(token);
+            if (user == null) {
+                return "/login.html";
+            }
+
+            //创建当前登录上下文
+            UsernamePasswordAuthenticationToken authentication = new UsernamePasswordAuthenticationToken(
+                    user, null, user.getAuthorities());
+            SecurityContextHolder.getContext().setAuthentication(authentication);
+
+            //渲染首页需要的用户信息
+            Map<String, Object> userIndexInfo = userService.getUserIndexInfo();
+            if (userIndexInfo == null) {
+                model.addAttribute("tips", "该用户没有角色，无法登陆！");
+                return "/login.html";
+            } else {
+                model.addAllAttributes(userIndexInfo);
+            }
+
+            //创建cookie
+            authService.addLoginCookie(token);
+
+            return "/index.html";
+        } else {
+            model.addAttribute("tips", "token请求为空，无法登录！");
+            return "/login.html";
+        }
     }
 
     /**

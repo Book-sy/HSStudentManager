@@ -29,4 +29,8 @@ public class LoginLogService extends ServiceImpl<LoginLogMapper, LoginLog> {
     public List<Map<String, Object>> getLoginLogs(Page page, String beginTime, String endTime, String logName) {
         return this.baseMapper.getLoginLogs(page, beginTime, endTime, logName);
     }
+    
+    public long getNumber() {
+        return baseMapper.getNumber();
+    }
 }

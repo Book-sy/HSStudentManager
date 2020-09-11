@@ -23,11 +23,31 @@ package cn.stylefeng.guns.sys.core.constant;
  */
 public interface Const {
 
+
+    /**
+     * 辅导员角色的名字
+     */
+    String FDY_NAME = "FDY";
+    /**
+     * 学院领导角色的名字
+     */
+    String XY_NAME = "XY";
+    /**
+     * 学生角色的名字
+     */
+    String STU_NAME = "STU";
+    /**
+     * 班长角色的名字
+     */
+    String BZ_NAME = "BZ";
+    /**
+     * 班主任角色的名字
+     */
+    String BZR_NAME = "BZR";
     /**
      * 管理员角色的名字
      */
     String ADMIN_NAME = "administrator";
-
     /**
      * 管理员id
      */

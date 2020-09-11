@@ -90,7 +90,6 @@ public class DeptController extends BaseController {
      * @author fengshuonan
      * @Date 2018/12/23 4:56 PM
      */
-    @Permission
     @RequestMapping("/dept_update")
     public String deptUpdate(@RequestParam("deptId") Long deptId) {
 
@@ -167,7 +166,6 @@ public class DeptController extends BaseController {
      */
     @BussinessLog(value = "添加部门", key = "simpleName", dict = DeptDict.class)
     @RequestMapping(value = "/add")
-    @Permission
     @ResponseBody
     public ResponseData add(Dept dept) {
         this.deptService.addDept(dept);
@@ -181,7 +179,6 @@ public class DeptController extends BaseController {
      * @Date 2018/12/23 4:57 PM
      */
     @RequestMapping(value = "/list")
-    @Permission
     @ResponseBody
     public Object list(@RequestParam(value = "condition", required = false) String condition,
                        @RequestParam(value = "deptId", required = false) Long deptId) {
@@ -197,7 +194,6 @@ public class DeptController extends BaseController {
      * @Date 2018/12/23 4:57 PM
      */
     @RequestMapping(value = "/detail/{deptId}")
-    @Permission
     @ResponseBody
     public Object detail(@PathVariable("deptId") Long deptId) {
         Dept dept = deptService.getById(deptId);
@@ -215,7 +211,6 @@ public class DeptController extends BaseController {
      */
     @BussinessLog(value = "修改部门", key = "simpleName", dict = DeptDict.class)
     @RequestMapping(value = "/update")
-    @Permission
     @ResponseBody
     public ResponseData update(Dept dept) {
         deptService.editDept(dept);
@@ -230,7 +225,6 @@ public class DeptController extends BaseController {
      */
     @BussinessLog(value = "删除部门", key = "deptId", dict = DeptDict.class)
     @RequestMapping(value = "/delete")
-    @Permission
     @ResponseBody
     public ResponseData delete(@RequestParam Long deptId) {
 

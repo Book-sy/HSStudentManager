@@ -60,6 +60,13 @@ public class LoginLog implements Serializable {
     @TableField("ip_address")
     private String ipAddress;
 
+    public Long getCreateUser(){
+        return 1L;
+    }
+
+    public void setCreateUser(Long createUser){
+
+    }
 
     public Long getLoginLogId() {
         return loginLogId;
@@ -115,14 +122,6 @@ public class LoginLog implements Serializable {
 
     public void setIpAddress(String ipAddress) {
         this.ipAddress = ipAddress;
-    }
-
-    public String getCreateUser(){
-        return null;
-    }
-
-    public void setCreateUser(Long createUser){
-
     }
 
     @Override

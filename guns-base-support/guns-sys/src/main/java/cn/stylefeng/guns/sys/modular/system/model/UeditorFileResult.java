@@ -26,6 +26,7 @@ import lombok.Data;
 @Data
 public class UeditorFileResult {
 
+    private String fileId;
     /**
      * 状态：固定值SUCCESS
      */
@@ -45,4 +46,20 @@ public class UeditorFileResult {
      * 文件名称（这里我使用随机字符串来重新命名图片）
      */
     private String original;
+    
+    /**
+     * 系统生成文件名
+     */
+    private String fileName;
+
+    public UeditorFileResult() {
+    }
+
+    public UeditorFileResult(String fileId, String url, String title, String original, String fileName) {
+        this.fileId = fileId;
+        this.url = url;
+        this.title = title;
+        this.original = original;
+        this.fileName = fileName;
+    }
 }

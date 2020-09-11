@@ -90,7 +90,7 @@ public class RoleService extends ServiceImpl<RoleMapper, Role> {
      * @param ids    权限的id
      * @date 2017年2月13日 下午8:26:53
      */
-    @Transactional(rollbackFor = Exception.class)
+    @Transactional(rollbackFor = Exception.class, timeout = 30)
     public void setAuthority(Long roleId, String ids) {
 
         // 删除该角色所有的权限

@@ -25,12 +25,6 @@ public class FileInfo implements Serializable {
     private String fileId;
 
     /**
-     * 文件仓库（oss仓库）
-     */
-    @TableField("file_bucket")
-    private String fileBucket;
-
-    /**
      * 文件名称
      */
     @TableField("file_name")
@@ -91,14 +85,6 @@ public class FileInfo implements Serializable {
 
     public void setFileId(String fileId) {
         this.fileId = fileId;
-    }
-
-    public String getFileBucket() {
-        return fileBucket;
-    }
-
-    public void setFileBucket(String fileBucket) {
-        this.fileBucket = fileBucket;
     }
 
     public String getFileName() {
@@ -177,7 +163,6 @@ public class FileInfo implements Serializable {
     public String toString() {
         return "FileInfo{" +
         "fileId=" + fileId +
-        ", fileBucket=" + fileBucket +
         ", fileName=" + fileName +
         ", fileSuffix=" + fileSuffix +
         ", fileSizeKb=" + fileSizeKb +

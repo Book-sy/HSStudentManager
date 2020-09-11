@@ -17,6 +17,18 @@
 
     <dependencies>
 
+        <dependency>
+            <groupId>org.freemarker</groupId>
+            <artifactId>freemarker</artifactId>
+            <version>2.3.23</version>
+        </dependency>
+
+        <!--JSON解析类-->
+        <dependency>
+            <groupId>org.json</groupId>
+            <artifactId>json</artifactId>
+            <version>20170516</version>
+        </dependency>
         <!-- guns-vip基础框架 -->
         <dependency>
             <groupId>cn.stylefeng</groupId>
@@ -71,7 +83,9 @@
                                     <descriptor>docker-assembly.xml</descriptor>
                                 </assembly>
                                 <cmd>
-                                    <shell>java -jar -Xms512m -Xmx512m -Xss1024K -XX:MetaspaceSize=256m -XX:MaxMetaspaceSize=256m /maven/${project.artifactId}.jar</shell>
+                                    <shell>java -jar -Xms512m -Xmx512m -Xss1024K -XX:MetaspaceSize=256m
+                                        -XX:MaxMetaspaceSize=256m /maven/${project.artifactId}.jar
+                                    </shell>
                                 </cmd>
                             </build>
                         </image>

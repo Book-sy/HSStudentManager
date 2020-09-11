@@ -34,7 +34,10 @@ public class PositionParam implements Serializable, BaseValidatingParam {
      * 职位编码
      */
     private String code;
-
+    /**
+     * 系统职位编码，不可更改用于逻辑处理
+     */
+    private String sysCode;
     /**
      * 顺序
      */

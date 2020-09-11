@@ -35,7 +35,14 @@ public class Position implements Serializable {
      */
     @TableField("code")
     private String code;
-
+    
+    /**
+     * 系统职位编码，不可更改用于逻辑处理
+     */
+    /*
+    @TableField("sys_code")
+    private String sysCode;*/
+    
     /**
      * 顺序
      */
@@ -86,7 +93,7 @@ public class Position implements Serializable {
     public void setPositionId(Long positionId) {
         this.positionId = positionId;
     }
-
+    
     public String getName() {
         return name;
     }

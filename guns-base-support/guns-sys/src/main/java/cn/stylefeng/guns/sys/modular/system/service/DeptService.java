@@ -41,7 +41,7 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
     @Transactional(rollbackFor = Exception.class)
     public void addDept(Dept dept) {
 
-        if (ToolUtil.isOneEmpty(dept, dept.getSimpleName(), dept.getFullName(), dept.getPid(), dept.getDescription())) {
+        if (ToolUtil.isOneEmpty(dept, dept.getSimpleName(), dept.getFullName(), dept.getPid())) {
             throw new ServiceException(BizExceptionEnum.REQUEST_NULL);
         }
 
@@ -128,18 +128,6 @@ public class DeptService extends ServiceImpl<DeptMapper, Dept> {
      */
     public Page<Map<String, Object>> list(String condition, Long deptId) {
         Page page = LayuiPageFactory.defaultPage();
-        return this.baseMapper.list(page, condition, deptId);
-    }
-
-    /**
-     * 获取所有部门列表
-     *
-     * @author fengshuonan
-     * @Date 2018/12/23 5:16 PM
-     */
-    public Page<Map<String, Object>> allList(String condition, Long deptId) {
-        Page page = LayuiPageFactory.defaultPage();
-        page.setSize(Long.MAX_VALUE);
         return this.baseMapper.list(page, condition, deptId);
     }
 

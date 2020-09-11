@@ -18,7 +18,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
-import java.math.BigDecimal;
 import java.util.List;
 import java.util.Map;
 
@@ -38,6 +37,7 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, Position> i
 
     @Override
     public void add(PositionParam param) {
+        param.setSysCode(param.getCode());
         Position entity = getEntity(param);
         this.save(entity);
     }
@@ -89,15 +89,8 @@ public class PositionServiceImpl extends ServiceImpl<PositionMapper, Position> i
             if (userPosList != null && userPosList.size() > 0) {
                 for (UserPos userPos : userPosList) {
                     for (Map<String, Object> positionMap : list) {
-                        Object positionId = positionMap.get("positionId");
-                        if (positionId instanceof BigDecimal) {
-                            if (new BigDecimal(userPos.getPosId()).equals(positionId)) {
-                                positionMap.put("selected", true);
-                            }
-                        } else {
-                            if (userPos.getPosId().equals(positionId)) {
-                                positionMap.put("selected", true);
-                            }
+                        if (userPos.getPosId().equals(positionMap.get("positionId"))) {
+                            positionMap.put("selected", true);
                         }
                     }
                 }

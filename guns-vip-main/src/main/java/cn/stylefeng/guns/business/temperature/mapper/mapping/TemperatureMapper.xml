@@ -1,0 +1,241 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.business.temperature.mapper.TemperatureMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.business.temperature.entity.Temperature">
+        <id column="id" property="id" />
+        <result column="user" property="user" />
+        <result column="day" property="day" />
+        <result column="first" property="first" />
+        <result column="first_time" property="firstTime" />
+        <result column="first_j" property="firstJ" />
+        <result column="first_w" property="firstW" />
+        <result column="second" property="second" />
+        <result column="second_time" property="secondTime" />
+        <result column="second_j" property="secondJ" />
+        <result column="second_w" property="secondW" />
+        <result column="third" property="third" />
+        <result column="third_time" property="thirdTime" />
+        <result column="third_j" property="thirdJ" />
+        <result column="third_w" property="thirdW" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", user AS "user", day AS "day", first AS "first", first_time AS "firstTime", first_j AS "firstJ", first_w AS "firstW", second AS "second", second_time AS "secondTime", second_j AS "secondJ", second_w AS "secondW", third AS "third", third_time AS "thirdTime", third_j AS "thirdJ", third_w AS "thirdW"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.business.temperature.model.result.TemperatureResult" parameterType="cn.stylefeng.guns.business.temperature.model.params.TemperatureParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _temperature where 1 = 1
+            <if test="paramCondition.day != null and paramCondition.day != ''">
+                and day like CONCAT('%',#{paramCondition.day},'%')
+            </if>
+            <if test="paramCondition.first != null and paramCondition.first != ''">
+                and first like CONCAT('%',#{paramCondition.first},'%')
+            </if>
+            <if test="paramCondition.firstJ != null and paramCondition.firstJ != ''">
+                and first_j like CONCAT('%',#{paramCondition.firstJ},'%')
+            </if>
+            <if test="paramCondition.firstTime != null and paramCondition.firstTime != ''">
+                and first_time like CONCAT('%',#{paramCondition.firstTime},'%')
+            </if>
+            <if test="paramCondition.firstW != null and paramCondition.firstW != ''">
+                and first_w like CONCAT('%',#{paramCondition.firstW},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.second != null and paramCondition.second != ''">
+                and second like CONCAT('%',#{paramCondition.second},'%')
+            </if>
+            <if test="paramCondition.secondJ != null and paramCondition.secondJ != ''">
+                and second_j like CONCAT('%',#{paramCondition.secondJ},'%')
+            </if>
+            <if test="paramCondition.secondTime != null and paramCondition.secondTime != ''">
+                and second_time like CONCAT('%',#{paramCondition.secondTime},'%')
+            </if>
+            <if test="paramCondition.secondW != null and paramCondition.secondW != ''">
+                and second_w like CONCAT('%',#{paramCondition.secondW},'%')
+            </if>
+            <if test="paramCondition.third != null and paramCondition.third != ''">
+                and third like CONCAT('%',#{paramCondition.third},'%')
+            </if>
+            <if test="paramCondition.thirdJ != null and paramCondition.thirdJ != ''">
+                and third_j like CONCAT('%',#{paramCondition.thirdJ},'%')
+            </if>
+            <if test="paramCondition.thirdTime != null and paramCondition.thirdTime != ''">
+                and third_time like CONCAT('%',#{paramCondition.thirdTime},'%')
+            </if>
+            <if test="paramCondition.thirdW != null and paramCondition.thirdW != ''">
+                and third_w like CONCAT('%',#{paramCondition.thirdW},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.business.temperature.model.params.TemperatureParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _temperature where 1 = 1
+            <if test="paramCondition.day != null and paramCondition.day != ''">
+                and day like CONCAT('%',#{paramCondition.day},'%')
+            </if>
+            <if test="paramCondition.first != null and paramCondition.first != ''">
+                and first like CONCAT('%',#{paramCondition.first},'%')
+            </if>
+            <if test="paramCondition.firstJ != null and paramCondition.firstJ != ''">
+                and first_j like CONCAT('%',#{paramCondition.firstJ},'%')
+            </if>
+            <if test="paramCondition.firstTime != null and paramCondition.firstTime != ''">
+                and first_time like CONCAT('%',#{paramCondition.firstTime},'%')
+            </if>
+            <if test="paramCondition.firstW != null and paramCondition.firstW != ''">
+                and first_w like CONCAT('%',#{paramCondition.firstW},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.second != null and paramCondition.second != ''">
+                and second like CONCAT('%',#{paramCondition.second},'%')
+            </if>
+            <if test="paramCondition.secondJ != null and paramCondition.secondJ != ''">
+                and second_j like CONCAT('%',#{paramCondition.secondJ},'%')
+            </if>
+            <if test="paramCondition.secondTime != null and paramCondition.secondTime != ''">
+                and second_time like CONCAT('%',#{paramCondition.secondTime},'%')
+            </if>
+            <if test="paramCondition.secondW != null and paramCondition.secondW != ''">
+                and second_w like CONCAT('%',#{paramCondition.secondW},'%')
+            </if>
+            <if test="paramCondition.third != null and paramCondition.third != ''">
+                and third like CONCAT('%',#{paramCondition.third},'%')
+            </if>
+            <if test="paramCondition.thirdJ != null and paramCondition.thirdJ != ''">
+                and third_j like CONCAT('%',#{paramCondition.thirdJ},'%')
+            </if>
+            <if test="paramCondition.thirdTime != null and paramCondition.thirdTime != ''">
+                and third_time like CONCAT('%',#{paramCondition.thirdTime},'%')
+            </if>
+            <if test="paramCondition.thirdW != null and paramCondition.thirdW != ''">
+                and third_w like CONCAT('%',#{paramCondition.thirdW},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.business.temperature.model.result.TemperatureResult" parameterType="cn.stylefeng.guns.business.temperature.model.params.TemperatureParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _temperature where 1 = 1
+            <if test="paramCondition.day != null and paramCondition.day != ''">
+                and day like CONCAT('%',#{paramCondition.day},'%')
+            </if>
+            <if test="paramCondition.first != null and paramCondition.first != ''">
+                and first like CONCAT('%',#{paramCondition.first},'%')
+            </if>
+            <if test="paramCondition.firstJ != null and paramCondition.firstJ != ''">
+                and first_j like CONCAT('%',#{paramCondition.firstJ},'%')
+            </if>
+            <if test="paramCondition.firstTime != null and paramCondition.firstTime != ''">
+                and first_time like CONCAT('%',#{paramCondition.firstTime},'%')
+            </if>
+            <if test="paramCondition.firstW != null and paramCondition.firstW != ''">
+                and first_w like CONCAT('%',#{paramCondition.firstW},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.second != null and paramCondition.second != ''">
+                and second like CONCAT('%',#{paramCondition.second},'%')
+            </if>
+            <if test="paramCondition.secondJ != null and paramCondition.secondJ != ''">
+                and second_j like CONCAT('%',#{paramCondition.secondJ},'%')
+            </if>
+            <if test="paramCondition.secondTime != null and paramCondition.secondTime != ''">
+                and second_time like CONCAT('%',#{paramCondition.secondTime},'%')
+            </if>
+            <if test="paramCondition.secondW != null and paramCondition.secondW != ''">
+                and second_w like CONCAT('%',#{paramCondition.secondW},'%')
+            </if>
+            <if test="paramCondition.third != null and paramCondition.third != ''">
+                and third like CONCAT('%',#{paramCondition.third},'%')
+            </if>
+            <if test="paramCondition.thirdJ != null and paramCondition.thirdJ != ''">
+                and third_j like CONCAT('%',#{paramCondition.thirdJ},'%')
+            </if>
+            <if test="paramCondition.thirdTime != null and paramCondition.thirdTime != ''">
+                and third_time like CONCAT('%',#{paramCondition.thirdTime},'%')
+            </if>
+            <if test="paramCondition.thirdW != null and paramCondition.thirdW != ''">
+                and third_w like CONCAT('%',#{paramCondition.thirdW},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+        <if test="paramCondition.userId != null">
+        and( false
+            <foreach collection="paramCondition.userId" item="id">
+                or user = #{id}
+            </foreach>
+            )
+        </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.business.temperature.model.params.TemperatureParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _temperature where 1 = 1
+            <if test="paramCondition.day != null and paramCondition.day != ''">
+                and day like CONCAT('%',#{paramCondition.day},'%')
+            </if>
+            <if test="paramCondition.first != null and paramCondition.first != ''">
+                and first like CONCAT('%',#{paramCondition.first},'%')
+            </if>
+            <if test="paramCondition.firstJ != null and paramCondition.firstJ != ''">
+                and first_j like CONCAT('%',#{paramCondition.firstJ},'%')
+            </if>
+            <if test="paramCondition.firstTime != null and paramCondition.firstTime != ''">
+                and first_time like CONCAT('%',#{paramCondition.firstTime},'%')
+            </if>
+            <if test="paramCondition.firstW != null and paramCondition.firstW != ''">
+                and first_w like CONCAT('%',#{paramCondition.firstW},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.second != null and paramCondition.second != ''">
+                and second like CONCAT('%',#{paramCondition.second},'%')
+            </if>
+            <if test="paramCondition.secondJ != null and paramCondition.secondJ != ''">
+                and second_j like CONCAT('%',#{paramCondition.secondJ},'%')
+            </if>
+            <if test="paramCondition.secondTime != null and paramCondition.secondTime != ''">
+                and second_time like CONCAT('%',#{paramCondition.secondTime},'%')
+            </if>
+            <if test="paramCondition.secondW != null and paramCondition.secondW != ''">
+                and second_w like CONCAT('%',#{paramCondition.secondW},'%')
+            </if>
+            <if test="paramCondition.third != null and paramCondition.third != ''">
+                and third like CONCAT('%',#{paramCondition.third},'%')
+            </if>
+            <if test="paramCondition.thirdJ != null and paramCondition.thirdJ != ''">
+                and third_j like CONCAT('%',#{paramCondition.thirdJ},'%')
+            </if>
+            <if test="paramCondition.thirdTime != null and paramCondition.thirdTime != ''">
+                and third_time like CONCAT('%',#{paramCondition.thirdTime},'%')
+            </if>
+            <if test="paramCondition.thirdW != null and paramCondition.thirdW != ''">
+                and third_w like CONCAT('%',#{paramCondition.thirdW},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+    </select>
+
+</mapper>

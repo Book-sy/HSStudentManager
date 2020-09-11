@@ -15,7 +15,7 @@
     <version>1.0.0</version>
 
     <name>guns-vip</name>
-    <description>guns企业单体版</description>
+    <description>请假审批系统</description>
 
     <packaging>pom</packaging>
 
@@ -100,7 +100,7 @@
                 <version>${oshi.version}</version>
             </dependency>
 
-            <!-- 第三方登录 -->
+            <!-- 登录模块 -->
             <dependency>
                 <groupId>me.zhyd.oauth</groupId>
                 <artifactId>JustAuth</artifactId>

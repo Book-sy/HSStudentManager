@@ -124,6 +124,9 @@ public class UserFactory {
 
         return loginUser;
     }
+    
+    
+    
 
     /**
      * 判断用户是否是从oauth2登录过来的

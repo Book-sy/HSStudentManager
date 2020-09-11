@@ -59,11 +59,6 @@ public class DictTypeParam implements Serializable, BaseValidatingParam {
      */
     private Integer sort;
 
-    /**
-     * 字典类型编码
-     */
-    private String dictTypeCode;
-
     @Override
     public String checkParam() {
         return null;

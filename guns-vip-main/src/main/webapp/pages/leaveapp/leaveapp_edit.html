@@ -1,0 +1,147 @@
+@layout("/common/_form.html",{js:["/assets/leaveapp/leaveapp_edit.js"]}){
+
+<form class="layui-form" id="leaveappForm" lay-filter="leaveappForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <input name="id" type="hidden"/>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">用户ID<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="userId" name="userId" placeholder="请输入用户ID" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">校区<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="xiaoqu" name="xiaoqu" placeholder="请输入校区" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">宿舍号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="sushehao" name="sushehao" placeholder="请输入宿舍号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">学院<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="xueyuan" name="xueyuan" placeholder="请输入学院" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">原因<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="reason" name="reason" placeholder="请输入原因" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">开始时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="startTime" name="startTime" placeholder="请输入开始时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">结束时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="endTime" name="endTime" placeholder="请输入结束时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">身份证号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="shenfenzheng" name="shenfenzheng" placeholder="请输入身份证号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">出行轨迹<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="chuxingguiji" name="chuxingguiji" placeholder="请输入出行轨迹" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">紧急联系人<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="jinjilianxiren" name="jinjilianxiren" placeholder="请输入紧急联系人" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">关系<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="guanxi" name="guanxi" placeholder="请输入关系" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">电话号码<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="phone" name="phone" placeholder="请输入电话号码" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">出校居住地<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="address" name="address" placeholder="请输入出校居住地" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">学院意见<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="xueyuanyijian" name="xueyuanyijian" placeholder="请输入学院意见" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">学院审批时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="time" name="time" placeholder="请输入学院审批时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">班长意见<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="banzhangyijian" name="banzhangyijian" placeholder="请输入班长意见" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">班长审批时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="banzhangTime" name="banzhangTime" placeholder="请输入班长审批时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">班主任意见<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="banzhurenyijian" name="banzhurenyijian" placeholder="请输入班主任意见" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">班主任审批时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="banzhurenTime" name="banzhurenTime" placeholder="请输入班主任审批时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">辅导员意见<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="fudaoyuanyijian" name="fudaoyuanyijian" placeholder="请输入辅导员意见" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">辅导员审批时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="fudaoyuanTime" name="fudaoyuanTime" placeholder="请输入辅导员审批时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}

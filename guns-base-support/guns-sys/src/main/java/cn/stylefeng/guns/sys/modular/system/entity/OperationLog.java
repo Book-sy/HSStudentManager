@@ -149,11 +149,10 @@ public class OperationLog implements Serializable {
     }
 
     public Long getCreateUser(){
-        return 0L;
+        return 1L;
     }
 
     public void setCreateUser(Long createUser){
-
     }
 
     @Override

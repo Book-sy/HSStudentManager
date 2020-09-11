@@ -90,6 +90,17 @@ public class SystemController extends BaseController {
     public String console2() {
         return "/modular/frame/console2.html";
     }
+    
+    /**
+     * 工作台
+     *
+     * @author fengshuonan
+     * @Date 2018/12/24 22:43
+     */
+    @RequestMapping("/console3")
+    public String console3() {
+        return "/modular/frame/console3.html";
+    }
 
     /**
      * 系统硬件信息页面

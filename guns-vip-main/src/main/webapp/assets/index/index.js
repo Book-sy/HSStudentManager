@@ -1,4 +1,4 @@
-layui.use(['layer', 'carousel','table','admin', 'ax', 'func'], function () {
+layui.use(['layer', 'carousel', 'table', 'admin', 'ax', 'func', 'laytpl', 'laydate', 'index'], function () {
     var $ = layui.jquery;
     var layer = layui.layer;
     var carousel = layui.carousel;
@@ -7,9 +7,32 @@ layui.use(['layer', 'carousel','table','admin', 'ax', 'func'], function () {
     var table = layui.table;
     var $ax = layui.ax;
     var admin = layui.admin;
+    var laytpl = layui.laytpl;
+    var index = layui.index;
 
-    var data = new Date();
-    document.getElementById('detaa').innerHTML = data.getFullYear()+'-'+(data.getMonth()+1)+'-'+data.getDate()+'日 每日一报<span class="layui-badge layui-bg-black pull-right">日</span>';
+    laytpl(sq.innerHTML).render({
+        "title": "请假申请",
+        "danwei": "单",
+        "button": "开始申请",
+        "buttonid": "qjsq",
+        "zj": "总计递交单数：",
+        "sl": "200 ",
+        "class": "layui-btn layui-btn"
+    }, function (html) {
+        document.getElementById('sqb').innerHTML = html;
+    });
+
+    laytpl(sq.innerHTML).render({
+        "title": "测试中...",
+        "danwei": "单",
+        "button": "测试版可用",
+        "buttonid": "sqd",
+        "zj": "测试数：",
+        "sl": "0+",
+        "class": "layui-btn layui-btn-disabled"
+    }, function (html) {
+        document.getElementById('sqb2').innerHTML = html;
+    });
 
     // 渲染轮播
     carousel.render({
@@ -22,17 +45,10 @@ layui.use(['layer', 'carousel','table','admin', 'ax', 'func'], function () {
         anim: 'fade'
     });
 
-    $('#bao').click(function () {
+    $('#qjsq').click(function () {
         func.open({
-            title: '每日一报',
-            content: Feng.ctxPath + '/businessDailyReport/bao'
-        });
-    });
-
-    $('#application').click(function () {
-        func.open({
-            title: '外出申请',
-            content: Feng.ctxPath + '/businessOutApplication/app',
+            title: '请假申请',
+            content: Feng.ctxPath + '/leaveapp/app',
             tableId: 'bt',
             area: 'auto'
         });
@@ -42,35 +58,27 @@ layui.use(['layer', 'carousel','table','admin', 'ax', 'func'], function () {
         tableId: "Index"
     };
 
-    var bz = {
-        tableId: "bz"
-    };
-
     Index.initColumn = function () {
         return [[
+            {type: 'checkbox'},
             {field: 'id', hide: true, title: ''},
-            {field: 'user', sort: true, hide: true, title: '用户'},
-            {field: 'oneTime', sort: true, title: '第一阶段'},
-            {field: 'twoTime', sort: true, title: '第二阶段'},
-            {field: 'threeTime', sort: true, title: '第三阶段'},
-            {field: 'fourTime', sort: true, title: '第四阶段'},
-            {field: 'applicationType', align: 'center', sort: true, title: '申请类型', templet: '#type'},
-            {field: 'file', align: 'center', sort: true, title: '文件', templet: '#file'},
-            {field: 'nowstep', align: 'center', sort: true, title: '申报进度', templet: '#jindu',width: 160},
-        ]];
-    };
-
-    bz.initColumn = function () {
-        return [[
-            {field: 'id', hide: true, title: ''},
-            {field: 'user', sort: true, title: '姓名'},
-            {field: 'oneTime', sort: true, title: '第一阶段'},
-            {field: 'twoTime', sort: true, title: '第二阶段'},
-            {field: 'threeTime', sort: true, title: '第三阶段'},
-            {field: 'fourTime', sort: true, title: '第四阶段'},
-            {field: 'applicationType', align: 'center', sort: true, title: '申请类型', templet: '#type'},
-            {field: 'file', align: 'center', sort: true, title: '文件', templet: '#file'},
-            {field: 'nowstep', align: 'center', sort: true, title: '申报进度', templet: '#bzjd'},
+            {field: 'xiaoqu', title: '校区'},
+            {field: 'sushehao', title: '宿舍号'},
+            {field: 'xueyuan', title: '学院'},
+            {field: 'reason', title: '原因'},
+            {field: 'startTime', title: '开始时间'},
+            {field: 'endTime', title: '结束时间'},
+            {field: 'shenfenzheng', title: '身份证号'},
+            {field: 'chuxingguiji', title: '出行轨迹', align: 'center', templet: '#gj'},
+            {field: 'jinjilianxiren', title: '紧急联系人'},
+            {field: 'guanxi', title: '关系'},
+            {field: 'phone', title: '紧急电话'},
+            {field: 'address', title: '出校居住地'},
+            {field: 'appTime', title: '申请时间'},
+            {field: 'xueyuanyijian', title: '学院意见', templet: '#xueyuanyijian'},
+            /*{field: 'banzhangyijian', title: '班长意见', templet: '#banzhangyijian'},
+            {field: 'banzhurenyijian', title: '班主任意见', templet: '#banzhurenyijian'},*/
+            {field: 'fudaoyuanyijian', title: '辅导员意见', templet: '#fudaoyuanyijian'},
         ]];
     };
 
@@ -78,80 +86,48 @@ layui.use(['layer', 'carousel','table','admin', 'ax', 'func'], function () {
     table.render({
         elem: '#Index',
         id: 'bt',
-        url: Feng.ctxPath + '/businessOutApplication/listUser',
+        url: Feng.ctxPath + '/leaveapp/uslist',
+        method: 'POST',
+        where: {
+          sf: 'stu'
+        },
         page: true,
         cellMinWidth: 100,
         cols: Index.initColumn()
     });
 
-    table.render({
-        elem: '#bz',
-        id: 'bz',
-        url: Feng.ctxPath + '/businessOutApplication/bzlist',
-        page: true,
-        cellMinWidth: 100,
-        cols: bz.initColumn()
-    });
-
     // 工具条点击事件
     table.on('tool(Index)', function (obj) {
 
-        var data = obj.data;
+        var datas = obj.data;
         var layEvent = obj.event;
 
-        if (layEvent === 'download') {
-            layer.open({
-                type: 2,
-                title: false,
-                closeBtn: 0, //不显示关闭按钮
-                shade: [0],
-                area: ['1px', '1px'],
-                offset: 'rb',
-                time: 1000,
-                anim: 2,
-                content: [Feng.ctxPath + '/businessOutApplication/export?id=' + data.id, 'no']
-            });
-        } else if (layEvent === 'qr') {
-            func.open({
-                title: '修改',
-                content: Feng.ctxPath + '/businessOutApplication/sure?id='+data.id,
-                tableId: 'bt'
-            });
-            /*layer.open({
-                type: 2,
-                title: false,
-                closeBtn: 0, //不显示关闭按钮
-                shade: [0],
-                area: ['1px', '1px'],
-                offset: 'rb',
-                time: 1000,
-                anim: 2,
-                content: [Feng.ctxPath + '/businessOutApplication/qr?id=' + data.id, 'no'],
-                success: function(layero, index){
-                    table.reload('bt');
+        if (layEvent === 'gj') {
+            var url = 'https://restapi.amap.com/v3/staticmap?key=caa408034c27b0552255ab633c15858d&size=800*800&labels=';
+            var ajax = new $ax("https://restapi.amap.com/v3/geocode/regeo?key=caa408034c27b0552255ab633c15858d&radius=0&extensions=all&batch=true&roadlevel=0&location=" + datas.chuxingguiji, function (data) {
+                var d = datas.chuxingguiji.split('|');
+                for (var i = 0; i < data.regeocodes.length; i++) {
+                    if (i != 0)
+                        url += '|';
+                    var loname = (i + 1) + '、' + ((data.regeocodes[i].aois.length == 0) ? (data.regeocodes[i].addressComponent.streetNumber.street + data.regeocodes[i].addressComponent.streetNumber.number) : data.regeocodes[i].aois[0].name);
+                    if(loname.length>15)
+                        loname = loname.substring(0,2)+loname.substring(loname.length-13,loname.length)
+                    url += loname + ',0,1,20,0xFFFFFF,0x2075EB:' + d[i];
                 }
-            });*/
-        } else if (layEvent === 'qx') {
-            layer.open({
-                type: 2,
-                title: false,
-                closeBtn: 0, //不显示关闭按钮
-                shade: [0],
-                area: ['1px', '1px'],
-                offset: 'rb',
-                time: 1000,
-                anim: 2,
-                content: [Feng.ctxPath + '/businessOutApplication/qx?id=' + data.id, 'no'],
-                success: function(layero, index){
-                    table.reload('bt');
-                }
+                layer.open({
+                    type: 1,
+                    title: false,
+                    closeBtn: 0,
+                    area: ['800px', '800px'],
+                    skin: 'layui-layer-nobg',
+                    shadeClose: true,
+                    content: " <span style='text-align: center;display:block'><img src='" + url + "'> </span> "
+                });
+            }, function (data) {
+                Feng.error("地点信息查询失败" + data.responseJSON.message)
             });
-        } else if (layEvent === 'xg') {
-            func.open({
-                title: '修改',
-                content: Feng.ctxPath + '/businessOutApplication/eapp?id=' + data.id,
-                tableId: 'bt'
-            });
+            ajax.type = 'GET';
+            ajax.start();
         }
     });
 });

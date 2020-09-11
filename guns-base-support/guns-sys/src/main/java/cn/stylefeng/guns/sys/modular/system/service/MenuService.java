@@ -259,6 +259,10 @@ public class MenuService extends ServiceImpl<MenuMapper, Menu> {
         //给所有的菜单url加上ctxPath
         for (MenuNode menuItem : menus) {
             menuItem.setUrl(ConfigListener.getConf().get("contextPath") + menuItem.getUrl());
+
+            //将菜单进行多语言翻译
+//            String transName = UserTranslationContext.get("MENU_" + menuItem.getCode().toUpperCase());
+            menuItem.setName(menuItem.getName());
         }
 
         return menus;

@@ -1,18 +1,27 @@
 package cn.stylefeng.guns.sys.modular.system.controller;
 
+import cn.hutool.core.io.FileUtil;
 import cn.hutool.core.io.resource.ResourceUtil;
 import cn.stylefeng.guns.sys.core.util.UeditorUtil;
+import cn.stylefeng.guns.sys.modular.system.entity.FileInfo;
 import cn.stylefeng.guns.sys.modular.system.model.UeditorFileResult;
+import cn.stylefeng.guns.sys.modular.system.service.FileInfoService;
+import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.multipart.MultipartFile;
 
 import javax.servlet.http.HttpServletResponse;
+import java.io.File;
+import java.io.IOException;
+import java.io.OutputStream;
+import java.math.BigDecimal;
 import java.nio.charset.StandardCharsets;
 
-import static cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum.UE_CONFIG_ERROR;
+import static cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum.*;
 
 /**
  * UEditor相关文件操作
@@ -22,8 +31,12 @@ import static cn.stylefeng.guns.sys.core.exception.enums.BizExceptionEnum.UE_CON
  */
 @Controller
 @RequestMapping("/ueditor")
+@CrossOrigin
 @Slf4j
 public class UeditorController {
+
+    @Autowired
+    private FileInfoService fileInfoService;
 
     /**
      * 获取ueditor的配置
@@ -114,5 +127,39 @@ public class UeditorController {
     @RequestMapping("/video/{fileName}")
     public void getVideo(@PathVariable("fileName") String fileName, HttpServletResponse response) {
         UeditorUtil.readFile(fileName, response, UeditorUtil.FileType.VIDEO, null);
+    }
+
+    /**
+     *获取图片
+     * @author dfggking
+     * @date 2020/8/7 15:48
+     * @version 1.0
+     */
+    @RequestMapping("/img")
+    public void readImg(Long id, HttpServletResponse response) {
+
+        FileInfo fileInfo = fileInfoService.getById(id);
+
+        //获取文件路径
+        File file = new File(fileInfo.getFilePath());
+
+        //文件不存在或者不可读
+        if (!file.exists() || !file.canRead()) {
+            throw new ServiceException(UE_FILE_NULL_ERROR);
+        }
+
+        //读取文件
+        byte[] bytes = null;
+
+        //设置响应的类型
+        response.setContentType("image/png");
+        bytes = FileUtil.readBytes(file);
+
+        try {
+            OutputStream stream = response.getOutputStream();
+            stream.write(bytes);
+        } catch (IOException e) {
+            throw new ServiceException(UE_FILE_READ_ERROR);
+        }
     }
 }

@@ -1,0 +1,85 @@
+@layout("/common/_container.html",{js:["/assets/leaveapp/leaveapp.js"]}){
+<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<div class="layui-body-header">
+    <span class="layui-body-header-title">管理</span>
+</div>
+
+<div class="layui-fluid">
+    @if(shiro.hasPermission("/leaveapp/createFile")){
+        <input id="var" type="text" value="1" hidden/>
+    @} else {
+        <input id="var" type="text" value="2" hidden/>
+    @}
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <input id="condition" class="layui-input" type="text" placeholder="名称"/>
+                            </div>
+                            <div class="layui-inline">
+                                <button id="btnSearch" class="layui-btn icon-btn"><i class="layui-icon">&#xe615;</i>搜索
+                                </button>
+                                <!--id="btnAdd"-->
+                                <button class="layui-btn layui-btn-disabled icon-btn"><i class="layui-icon">&#xe654;</i>添加
+                                </button>
+                                <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="layui-table" id="leaveappTable" lay-filter="leaveappTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script type="text/html" id="tableBar">
+    @if(shiro.hasPermission("/leaveapp/createFile")){
+    <a class="layui-btn layui-btn-normal layui-btn-xs" lay-event="tg">通过</a>
+    @}
+    <a class="layui-btn layui-btn-warm layui-btn-xs" lay-event="bh">驳回</a>
+</script>
+<script type="text/html" id="file">
+    <a class="layui-btn layui-btn-primary layui-btn-xs" lay-event="xz">下载</a>
+    <a class="layui-btn layui-btn-xs gx" value="{{ d.id }}" id="gx">更新</a>
+</script>
+<script type="text/html" id="gj">
+    <a class="layui-btn layui-btn layui-btn-xs" lay-event="gj">查看轨迹</a>
+</script>
+<script type="text/html" id="cl">
+    <a class="layui-btn layui-btn layui-btn-xs" lay-event="cl">下载材料</a>
+</script>
+
+<script type="text/html" id="banzhangyijian">
+    {{# if(d.banzhangyijian == '通过'){ }}
+    <span style="color: #0073ff; "><b>通过</b></span>
+    {{# }else{ }}
+    <span style="color: #ff0000; "><b>{{ d.banzhangyijian }}</b></span>
+    {{# } }}
+</script>
+<script type="text/html" id="banzhurenyijian">
+    {{# if(d.banzhurenyijian == '通过'){ }}
+    <span style="color: #0073ff; "><b>通过</b></span>
+    {{# }else{ }}
+    <span style="color: #ff0000; "><b>{{ d.banzhurenyijian }}</b></span>
+    {{# } }}
+</script>
+<script type="text/html" id="fudaoyuanyijian">
+    {{# if(d.fudaoyuanyijian == '通过'){ }}
+    <span style="color: #0073ff; "><b>通过</b></span>
+    {{# }else{ }}
+    <span style="color: #ff0000; "><b>{{ d.fudaoyuanyijian }}</b></span>
+    {{# } }}
+</script>
+<script type="text/html" id="xueyuanyijian">
+    {{# if(d.xueyuanyijian == '通过'){ }}
+    <span style="color: #0073ff; "><b>通过</b></span>
+    {{# }else{ }}
+    <span style="color: #ff0000; "><b>{{ d.xueyuanyijian }}</b></span>
+    {{# } }}
+</script>
+@}

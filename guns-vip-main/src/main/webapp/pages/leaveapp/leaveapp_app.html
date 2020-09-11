@@ -1,0 +1,114 @@
+@layout("/common/_form.html",{js:["/assets/leaveapp/leaveapp_app.js"]}){
+
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=ade65fea02ac47475ece0014fea33633"></script>
+
+<style>
+    html, body, #container {
+        height: 100%;
+        width: 100%;
+    }
+    .context_menu p{
+        cursor: pointer;
+        padding: 0.25rem 1.25rem;
+    }
+    .context_menu p:hover{
+        background: #ccc;
+    }
+</style>
+<form class="layui-form" id="leaveappForm" lay-filter="leaveappForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <input name="id" type="hidden"/>
+                    <input id="sign" name="sign" type="hidden"/>
+                    <input id="chuxingguiji" name="chuxingguiji" type="hidden"/>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">宿舍号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="sushehao" name="sushehao" placeholder="宿舍楼-宿舍号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">原因<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="reason" name="reason" placeholder="详细填写原因！二十字左右为宜！如有证明材料等，在下边上传！" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">证明材料</label>
+                        <div class="layui-input-block">
+                            <button type="button" class="layui-btn" name="filebtn" id="filebtn"><i class="layui-icon"></i>点我上传</button>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">开始时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input placeholder="点击选择开始时间" id="startTime" name="startTime" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">结束时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input placeholder="点击选择结束时间" id="endTime" name="endTime" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">身份证号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="shenfenzheng" name="shenfenzheng" lay-verify="identity"  placeholder="请输入身份证号" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">紧急联系人<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="jinjilianxiren" name="jinjilianxiren" placeholder="请输入紧急联系人 姓名！" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">与本人关系<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="guanxi" name="guanxi" placeholder="请输入关系" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">联系方式<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="phone" name="phone" placeholder="请输入电话号码" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">出校居住地<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="address" name="address" placeholder="请输入出校居住地" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">出行轨迹<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <textarea id="chuxinggj" name="chuxinggj" placeholder="请在地图中双击选择轨迹" class="layui-textarea" disabled lay-verify="required" required></textarea>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">轨迹选择<span style="color: red;">*</span></label>
+                        <div  style="padding:10px">
+                            <button type="button" class="layui-btn" onclick="chehui()">撤回选择</button>
+                            <button type="button" class="layui-btn layui-btn-normal" onclick="qingkong()">清空选择</button>
+                        </div>
+                        <div class="layui-input-block">
+                            <div id="container" style="width: 100%;height: 500px;"></div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}

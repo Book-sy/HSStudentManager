@@ -1,0 +1,105 @@
+@layout("/common/_form.html",{js:["/assets/temperature/temperature_edit.js"]}){
+
+<form class="layui-form" id="temperatureForm" lay-filter="temperatureForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <input name="id" type="hidden"/>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">用户id<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="user" name="user" placeholder="请输入用户id" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label"><span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="day" name="day" placeholder="请输入" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第一次温度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="first" name="first" placeholder="请输入第一次温度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第一次时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="firstTime" name="firstTime" placeholder="请输入第一次时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第一次经度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="firstJ" name="firstJ" placeholder="请输入第一次经度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第一次纬度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="firstW" name="firstW" placeholder="请输入第一次纬度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第二次温度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="second" name="second" placeholder="请输入第二次温度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第二次时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="secondTime" name="secondTime" placeholder="请输入第二次时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第二次经度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="secondJ" name="secondJ" placeholder="请输入第二次经度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第二次纬度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="secondW" name="secondW" placeholder="请输入第二次纬度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第三次温度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="third" name="third" placeholder="请输入第三次温度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第三次时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="thirdTime" name="thirdTime" placeholder="请输入第三次时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第三次经度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="thirdJ" name="thirdJ" placeholder="请输入第三次经度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">第三次纬度<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="thirdW" name="thirdW" placeholder="请输入第三次纬度" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}

@@ -1,0 +1,53 @@
+@layout("/common/_form.html",{js:["/assets/leaveapp/leaveapp_sign.js"]}){
+
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=ade65fea02ac47475ece0014fea33633"></script>
+
+<style>
+    .canvasDiv {
+        width: 300px;
+        height: 100px;
+        border: 1px solid gray;
+        margin: auto;
+    }
+
+    #editing_area {
+        width: 300px;
+        height: 100px;
+        border: 1px solid darkred;
+    }
+    #canvasEdit {
+        width: 300px;
+        height: 100px;
+        border: 1px solid gold;
+    }
+</style>
+
+
+<blockquote class="layui-elem-quote layui-text" style="text-align:center">
+    北京信息科技大学学生疫情防控义务承诺书<br>
+    （申请出校学生）<br>
+    本人自觉遵守国家法律法规，自觉遵守北京市新冠肺炎疫情防控各项管理规定，按照对自己负责、对他人负责、对学校负责的原则，承担疫情防控社会责任，郑重作出如下承诺：<br>
+    一、本人已了解学校疫情防控期间的基本模式和原则，积极配合疫情防控，坚决服从学校各项管理，出校门后做到目的地与学校之间的两点一线。<br>
+    二、外出过程中，保持手机等通讯工具畅通，严格做好个人防护，避免前往人员密集场所，尽量减少换乘，分散就座，与他人保持一定距离。<br>
+    三、申请出校申报内容真实有效，并告知家长，及时关注接触校外人员身体健康情况，定期关注出校后行动轨迹是否发现新冠疑似病例，如发现以上情况有异常及时上报。出校后仍按照相关要求进行“晨午晚检”。<br>
+    四、本人保证遵守学校以及卫生健康部门新冠肺炎疫情防控有关规定，未有向学校隐瞒的其他内容。以上承诺，我将认真遵守、严格执行，如违反防控纪律造成严重后果，自愿承担相关法律责任。<br>
+    家长及本人已知晓并同意承诺内容。<br><br>
+    <span style="color: #ff003b; ">申请请在 班长、班主任、辅导员、学院领导 全部同意后，到教二207找阿老师领取出入证</span><br>
+    确认请在下方框内电子签名<br>
+</blockquote>
+<div class="canvasDiv">
+    <div id="editing_area">
+        <canvas id="canvasEdit"></canvas>
+    </div>
+</div>
+<div class="btnDiv text-center" style="padding: 10px">
+    <a id="sign_clear" class="layui-btn layui-btn-warm">清除</a>
+    <a id="sign_clear2" class="layui-btn layui-btn-normal tj">提交</a>
+</div>
+
+<script src="http://libs.baidu.com/jquery/2.0.0/jquery.min.js"></script>
+<script type="text/javascript" src="/assets/unit/esign.js"></script>
+<script type="text/javascript" src="/assets/unit/html2canvas.min.js"></script>
+</script>
+
+@}
