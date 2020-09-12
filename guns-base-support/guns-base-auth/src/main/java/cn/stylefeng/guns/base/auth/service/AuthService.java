@@ -17,6 +17,7 @@ package cn.stylefeng.guns.base.auth.service;
 
 import cn.stylefeng.guns.base.auth.model.LoginUser;
 
+import javax.servlet.http.HttpSession;
 import java.util.List;
 
 /**
@@ -35,6 +36,8 @@ public interface AuthService {
      * @return token
      */
     String login(String username, String password);
+
+    String login(String username, String password, HttpSession httpSession);
 
     /**
      * 登录（直接用账号登录）

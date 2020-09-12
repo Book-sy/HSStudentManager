@@ -224,8 +224,20 @@ public class LeaveappController extends BaseController {
         LoginUser us = LoginContextHolder.getContext().getUser();
         leaveappParam.setUserId(us.getId());
 
+        LayuiPageInfo pageBySpec = this.leaveappService.findPageBySpec(leaveappParam);
+        for (Object datum : pageBySpec.getData()) {
+            LeaveappResult data = (LeaveappResult) datum;
+            data.setShenfenzheng("******"+data.getShenfenzheng().substring(16,18));
+            try {
+                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(6, 10));
+                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(6, 10));
+            } catch (Exception e){
+                data.setPhone("***********");
+                data.setMyPhone("***********");
+            }
+        }
 
-        return this.leaveappService.findPageBySpec(leaveappParam);
+        return pageBySpec;
     }
 
     /**

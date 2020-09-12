@@ -39,6 +39,8 @@ import cn.stylefeng.guns.sys.modular.system.service.DictService;
 import cn.stylefeng.roses.core.util.HttpContext;
 import cn.stylefeng.roses.core.util.SpringContextHolder;
 import cn.stylefeng.roses.core.util.ToolUtil;
+import com.baomidou.mybatisplus.core.toolkit.IdWorker;
+import com.google.code.kaptcha.Constants;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.DependsOn;
 import org.springframework.stereotype.Service;
@@ -47,6 +49,7 @@ import org.springframework.transaction.annotation.Transactional;
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 import java.util.*;
 
 import static cn.stylefeng.guns.base.consts.ConstantsContext.getJwtSecretExpireSec;
@@ -88,6 +91,28 @@ public class AuthServiceImpl implements AuthService {
         String requestMd5 = SaltUtil.md5Encrypt(password, user.getSalt());
         String dbMd5 = user.getPassword();
         if (dbMd5 == null || !dbMd5.equalsIgnoreCase(requestMd5)) {
+            throw new AuthException(AuthExceptionEnum.USERNAME_PWD_ERROR);
+        }
+
+        return login(username);
+    }
+
+    @Override
+    public String login(String username, String password, HttpSession httpSession) {
+
+        User user = userMapper.getByAccount(username);
+
+        // 账号不存在
+        if (null == user) {
+            httpSession.setAttribute(Constants.KAPTCHA_SESSION_KEY, IdWorker.getIdStr());
+            throw new AuthException(AuthExceptionEnum.USERNAME_PWD_ERROR);
+        }
+
+        //验证账号密码是否正确
+        String requestMd5 = SaltUtil.md5Encrypt(password, user.getSalt());
+        String dbMd5 = user.getPassword();
+        if (dbMd5 == null || !dbMd5.equalsIgnoreCase(requestMd5)) {
+            httpSession.setAttribute(Constants.KAPTCHA_SESSION_KEY, IdWorker.getIdStr());
             throw new AuthException(AuthExceptionEnum.USERNAME_PWD_ERROR);
         }
 

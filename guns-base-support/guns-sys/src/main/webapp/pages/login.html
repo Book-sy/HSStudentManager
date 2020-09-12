@@ -159,6 +159,7 @@
                 index.clearTabCache();
                 window.location.href = Feng.ctxPath + "/";
             }, function (data) {
+                $('.login-captcha').attr('src',Feng.ctxPath+'/kaptcha'+'?t=' + (new Date).getTime());
                 layer.msg("登录失败！" + data.responseJSON.message, {icon: 5, anim: 6});
             });
             ajax.set("username", $("#username").val());
