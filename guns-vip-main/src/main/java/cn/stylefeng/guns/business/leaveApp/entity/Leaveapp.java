@@ -57,7 +57,7 @@ public class Leaveapp implements Serializable {
     private Date endTime;
 
     @TableField("shenfenzheng")
-    private Long shenfenzheng;
+    private String shenfenzheng;
 
     @TableField("chuxingguiji")
     private String chuxingguiji;
@@ -242,11 +242,11 @@ public class Leaveapp implements Serializable {
         this.endTime = endTime;
     }
 
-    public Long getShenfenzheng() {
+    public String getShenfenzheng() {
         return shenfenzheng;
     }
 
-    public void setShenfenzheng(Long shenfenzheng) {
+    public void setShenfenzheng(String shenfenzheng) {
         this.shenfenzheng = shenfenzheng;
     }
 

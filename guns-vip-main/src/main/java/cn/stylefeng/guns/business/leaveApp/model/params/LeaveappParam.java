@@ -49,7 +49,7 @@ public class LeaveappParam implements Serializable, BaseValidatingParam {
 
     private Date endTime;
 
-    private Long shenfenzheng;
+    private String shenfenzheng;
 
     private String chuxingguiji;
 

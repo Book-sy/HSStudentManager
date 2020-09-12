@@ -1,6 +1,6 @@
 @layout("/common/_form.html",{js:["/assets/leaveapp/leaveapp_app.js"]}){
 
-<script src="https://webapi.amap.com/maps?v=1.4.15&key=ade65fea02ac47475ece0014fea33633"></script>
+<script src="https://webapi.amap.com/maps?v=1.4.15&key=ade65fea02ac47475ece0014fea33633&plugin=AMap.Autocomplete,AMap.PlaceSearch"></script>
 
 <style>
     html, body, #container {
@@ -42,16 +42,28 @@
                             <button type="button" class="layui-btn" name="filebtn" id="filebtn"><i class="layui-icon"></i>点我上传</button>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">开始时间<span style="color: red;">*</span></label>
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">离校日期<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <input placeholder="点击选择开始时间" id="startTime" name="startTime" type="text" class="layui-input" lay-verify="required" required/>
+                            <input placeholder="点击选择离校日期" id="leaveDate" name="leaveDate" type="text" class="layui-input" lay-verify="required" required/>
                         </div>
                     </div>
-                    <div class="layui-inline layui-col-md12">
-                        <label class="layui-form-label">结束时间<span style="color: red;">*</span></label>
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">离校时间<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <input placeholder="点击选择结束时间" id="endTime" name="endTime" type="text" class="layui-input" lay-verify="required" required/>
+                            <input placeholder="点击选择离校时间" id="leaveTime" name="leaveTime" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">返校日期<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input placeholder="点击选择返校日期" id="backDate" name="backDate" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md6">
+                        <label class="layui-form-label">返校时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input placeholder="点击选择返校时间" id="backTime" name="backTime" type="text" class="layui-input" lay-verify="required" required/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
@@ -75,7 +87,7 @@
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label">联系方式<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <input id="phone" name="phone" placeholder="请输入电话号码" type="text" class="layui-input" lay-verify="required" required/>
+                            <input id="phone" name="phone" placeholder="请输入电话号码" type="text" class="layui-input" lay-verify="required|phone" required/>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
@@ -87,14 +99,17 @@
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label">出行轨迹<span style="color: red;">*</span></label>
                         <div class="layui-input-block">
-                            <textarea id="chuxinggj" name="chuxinggj" placeholder="请在地图中双击选择轨迹" class="layui-textarea" disabled lay-verify="required" required></textarea>
+                            <textarea id="chuxinggj" name="chuxinggj" placeholder="请在地图中双击选择轨迹" lay-reqtext="出行轨迹是必填项，岂能为空？" class="layui-textarea" disabled lay-verify="required" required></textarea>
                         </div>
                     </div>
                     <div class="layui-inline layui-col-md12">
                         <label class="layui-form-label">轨迹选择<span style="color: red;">*</span></label>
-                        <div  style="padding:10px">
-                            <button type="button" class="layui-btn" onclick="chehui()">撤回选择</button>
-                            <button type="button" class="layui-btn layui-btn-normal" onclick="qingkong()">清空选择</button>
+                        <div>
+                            <button type="button" class="layui-inline layui-btn" onclick="chehui()">撤回选择</button>
+                            <button type="button" class="layui-inline layui-btn layui-btn-normal" onclick="qingkong()">清空选择</button>
+                            <div id="myPageTop" class="layui-inline">
+                                            <input id="tipinput" type="text" class="layui-input" placeholder="搜索地点"/>
+                            </div>
                         </div>
                         <div class="layui-input-block">
                             <div id="container" style="width: 100%;height: 500px;"></div>

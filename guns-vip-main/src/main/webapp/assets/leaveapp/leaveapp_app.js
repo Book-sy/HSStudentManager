@@ -34,6 +34,21 @@ var map = new AMap.Map('container', {
     center: [ 116.38223,39.988922 ] //初始化地图中心点
 });
 
+
+var autoOptions = {
+    input: "tipinput"
+};
+var auto = new AMap.Autocomplete(autoOptions);
+var placeSearch = new AMap.PlaceSearch({
+    map: map
+});
+AMap.event.addListener(auto, "select", select);
+function select(e) {
+    console.log(e);
+    placeSearch.setCity(e.poi.adcode);
+    placeSearch.search(e.poi.name);
+}
+
 var markers = [];
 var positions = [];
 
@@ -71,6 +86,7 @@ function refuseGJ() {
 }
 
 function add(e) {
+    var ina = layer.load();
     position = [e.lnglat.getLng(),e.lnglat.getLat()];
     positions.push(position);
     layui.use('ax', function () {
@@ -81,6 +97,7 @@ function add(e) {
         }, function (data) {
             Feng.error("地点信息查询失败" + data.responseJSON.message)
         }).start();
+        layer.close(ina);
     })
 }
 
@@ -104,13 +121,14 @@ var signImga = function (res) {
     document.getElementById("sign").value = res;
 };
 /** layui 相关代码 */
-layui.use(['form', 'admin', 'ax', 'laydate', 'upload'], function () {
+layui.use(['form', 'admin', 'ax', 'laydate', 'upload', 'layer'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
     var admin = layui.admin;
     var laydate = layui.laydate;
     var upload = layui.upload;
+    var layer = layui.layer;
 
     var f;
     upload.render({
@@ -118,7 +136,7 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload'], function () {
         ,url: '/leaveapp/fileUp'
         ,accept: 'file'
         ,before: function(obj){
-            layer.load();
+            var inz = layer.load();
             obj.preview(function(index, file, result){
                 $('#filebtn').text(file.name);
             });
@@ -127,23 +145,33 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload'], function () {
             console.log(res.fileId);
             f = res.fileId;
             layer.msg('上传成功');
-            layer.closeAll('loading');
+            layer.close(inz);
         }
         ,error: function(index, upload){
-            layer.closeAll('loading'); //关闭loading
+            layer.close(inz); //关闭loading
         }
         ,field: 'upfile'
     });
 
     laydate.render({
-        elem: '#startTime'
-        ,type: 'datetime'
+        elem: '#leaveDate'
         ,trigger: 'click'
     });
 
     laydate.render({
-        elem: '#endTime'
-        ,type: 'datetime'
+        elem: '#backDate'
+        ,trigger: 'click'
+    });
+
+    laydate.render({
+        elem: '#leaveTime'
+        ,type: 'time'
+        ,trigger: 'click'
+    });
+
+    laydate.render({
+        elem: '#backTime'
+        ,type: 'time'
         ,trigger: 'click'
     });
 
@@ -160,12 +188,17 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload'], function () {
                 //关掉对话框
                 admin.closeThisDialog();
 
+                layer.close(inx);
+
             }, function (data) {
                 Feng.error("添加失败！" + data.responseJSON.message)
             });
+            var inx = layer.load();
             data.field.chuxingguiji = positions.join('|');
             data.field.sign = document.getElementById("sign").value;
             data.field.file = f;
+            data.field.startTime = data.field.leaveDate +' '+ data.field.leaveTime;
+            data.field.endTime = data.field.backDate +' '+ data.field.backTime;
             ajax.set(data.field);
             ajax.start();
         }
