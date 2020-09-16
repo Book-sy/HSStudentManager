@@ -70,4 +70,6 @@ public interface LeaveappService extends IService<Leaveapp> {
      LayuiPageInfo findPageBySpec(LeaveappParam param);
 
     SpQxResult lookSpQx(SpQxParam param);
+
+    SpQxResult getCount();
 }

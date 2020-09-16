@@ -57,7 +57,7 @@ public class LeaveappServiceImpl extends ServiceImpl<LeaveappMapper, Leaveapp> i
 
     @Override
     public List<LeaveappResult> findListBySpec(LeaveappParam param){
-        return null;
+        return this.baseMapper.customList(param);
     }
 
     @Override
@@ -70,6 +70,12 @@ public class LeaveappServiceImpl extends ServiceImpl<LeaveappMapper, Leaveapp> i
     @Override
     public SpQxResult lookSpQx(SpQxParam param){
         SpQxResult map = this.baseMapper.spQx(param);
+        return map;
+    }
+
+    @Override
+    public SpQxResult getCount(){
+        SpQxResult map = this.baseMapper.getCount();
         return map;
     }
 

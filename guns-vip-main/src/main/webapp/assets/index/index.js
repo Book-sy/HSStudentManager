@@ -45,40 +45,60 @@ layui.use(['layer', 'carousel', 'table', 'admin', 'ax', 'func', 'laytpl', 'layda
         anim: 'fade'
     });
 
-    $('#qjsq').click(function () {
-        func.open({
-            title: '请假申请',
-            content: Feng.ctxPath + '/leaveapp/app',
-            tableId: 'bt',
-            area: 'auto'
-        });
-    });
+    function reloadqj() {
+        $('#qjsq').click(function () {
+            func.open({
+                title: '请假申请',
+                content: Feng.ctxPath + '/leaveapp/app',
+                tableId: 'bt',
+                area: 'auto'
+            });
+        })
+    };
+    reloadqj();
 
     var Index = {
         tableId: "Index"
     };
 
+    new $ax(Feng.ctxPath + "/leaveapp/getCount", function (data) {
+        laytpl(sq.innerHTML).render({
+            "title": "请假申请",
+            "danwei": "单",
+            "button": "开始申请",
+            "buttonid": "qjsq",
+            "zj": "总计递交单数：",
+            "sl": data + ' ',
+            "class": "layui-btn layui-btn"
+        }, function (html) {
+            document.getElementById('sqb').innerHTML = html;
+        });
+        reloadqj();
+    }, function (data) {
+        Feng.error("表单数量查询失败：" + data.responseJSON.message)
+    }).start();
+
     Index.initColumn = function () {
         return [[
-            {type: 'checkbox'},
-            {field: 'id', hide: true, title: ''},
-            {field: 'xiaoqu', title: '校区'},
+            {field: 'nature', title: '性质', templet: '#xz'},
+            /*{field: 'xiaoqu', title: '校区'},*/
             {field: 'sushehao', title: '宿舍号'},
-            {field: 'xueyuan', title: '学院'},
+            /*{field: 'xueyuan', title: '学院'},*/
             {field: 'reason', title: '原因'},
             {field: 'startTime', title: '开始时间'},
             {field: 'endTime', title: '结束时间'},
-            {field: 'shenfenzheng', title: '身份证号'},
+            /*{field: 'shenfenzheng', title: '身份证号'},*/
             {field: 'chuxingguiji', title: '出行轨迹', align: 'center', templet: '#gj'},
             {field: 'jinjilianxiren', title: '紧急联系人'},
             {field: 'guanxi', title: '关系'},
             {field: 'phone', title: '紧急电话'},
             {field: 'address', title: '出校居住地'},
             {field: 'appTime', title: '申请时间'},
+            {field: 'otheryijian', title: '其他意见', templet: '#otheryijian'},
+            {field: 'fudaoyuanyijian', title: '辅导员意见', templet: '#fudaoyuanyijian'},
             {field: 'xueyuanyijian', title: '学院意见', templet: '#xueyuanyijian'},
             /*{field: 'banzhangyijian', title: '班长意见', templet: '#banzhangyijian'},
             {field: 'banzhurenyijian', title: '班主任意见', templet: '#banzhurenyijian'},*/
-            {field: 'fudaoyuanyijian', title: '辅导员意见', templet: '#fudaoyuanyijian'},
         ]];
     };
 
@@ -89,7 +109,7 @@ layui.use(['layer', 'carousel', 'table', 'admin', 'ax', 'func', 'laytpl', 'layda
         url: Feng.ctxPath + '/leaveapp/uslist',
         method: 'POST',
         where: {
-          sf: 'stu'
+            sf: 'stu'
         },
         page: true,
         cellMinWidth: 100,
@@ -110,8 +130,8 @@ layui.use(['layer', 'carousel', 'table', 'admin', 'ax', 'func', 'laytpl', 'layda
                     if (i != 0)
                         url += '|';
                     var loname = (i + 1) + '、' + ((data.regeocodes[i].aois.length == 0) ? (data.regeocodes[i].addressComponent.streetNumber.street + data.regeocodes[i].addressComponent.streetNumber.number) : data.regeocodes[i].aois[0].name);
-                    if(loname.length>15)
-                        loname = loname.substring(0,2)+loname.substring(loname.length-13,loname.length)
+                    if (loname.length > 15)
+                        loname = loname.substring(0, 2) + loname.substring(loname.length - 13, loname.length)
                     url += loname + ',0,1,20,0xFFFFFF,0x2075EB:' + d[i];
                 }
                 layer.open({

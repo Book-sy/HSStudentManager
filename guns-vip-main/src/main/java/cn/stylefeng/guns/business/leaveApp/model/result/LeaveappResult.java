@@ -19,13 +19,11 @@ public class LeaveappResult implements Serializable {
     private static final long serialVersionUID = 1L;
 
 
+    private Boolean nature;
+
     private Long id;
 
     private Long userId;
-
-    private Long banzhuren;
-
-    private Long banzhang;
 
     private Long fudaoyuan;
 
@@ -61,13 +59,11 @@ public class LeaveappResult implements Serializable {
 
     private Date appTime;
 
-    private String banzhangyijian;
+    private String otheryijian;
 
-    private Date banzhangTime;
+    private Date othertime;
 
-    private String banzhurenyijian;
-
-    private Date banzhurenTime;
+    private Long other;
 
     private String fudaoyuanyijian;
 
@@ -80,6 +76,7 @@ public class LeaveappResult implements Serializable {
     private Long sign;
 
     /** 人工联合查询字段  */
+    private String sex;
     private String dn;
     private String xh;
     private String name;

@@ -1,4 +1,4 @@
-layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer'], function () {
+layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer', 'form', 'laydate'], function () {
     var $ = layui.$;
     var table = layui.table;
     var $ax = layui.ax;
@@ -6,7 +6,15 @@ layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer'], function () {
     var func = layui.func;
     var upload = layui.upload;
     var layer = layui.layer;
+    var form = layui.form;
+    var laydate = layui.laydate;
 
+
+    //日期范围
+    laydate.render({
+        elem: '#rq'
+        ,range: '~'
+    });
 
     /**
      * 管理
@@ -24,6 +32,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer'], function () {
             {field: 'name', title: '姓名'},
             {field: 'dn', title: '班级'},
             {field: 'xh', title: '学号'},
+            {field: 'nature', title: '性质', templet: '#xz'},
             {field: 'myPhone', title: '联系方式'},
             {field: 'xiaoqu', title: '校区'},
             {field: 'sushehao', title: '宿舍号'},
@@ -43,6 +52,8 @@ layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer'], function () {
             {field: 'time', title: '学院审批时间'},
             {field: 'fudaoyuanyijian', title: '辅导员意见', templet: '#fudaoyuanyijian'},
             {field: 'fudaoyuanTime', title: '辅导员审批时间'},
+            {field: 'otheryijian', title: '其他意见', templet: '#otheryijian'},
+            {field: 'othertime', title: '意见审批时间'},
         ]];
         if (document.getElementById('var').value == 1) {
             newVar[0].unshift(
@@ -96,11 +107,12 @@ layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer'], function () {
      * 导出excel按钮
      */
     Leaveapp.exportExcel = function () {
-        var checkRows = table.checkStatus(Leaveapp.tableId);
-        if (checkRows.data.length === 0) {
-            Feng.error("请选择要导出的数据");
+        var data = document.getElementById("rq").value;
+        if (data == null || data == '') {
+            Feng.error("请选择要导出的数据时间范围");
         } else {
-            table.exportFile(tableResult.config.id, checkRows.data, 'xls');
+            var riqi = data.split(" ~ ")
+            window.open(Feng.ctxPath + '/leaveapp/getExcel?starTime=' + riqi[0] + "&endTime=" + riqi[1])
         }
     };
 
@@ -155,6 +167,23 @@ layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer'], function () {
                     table.reload(Leaveapp.tableId);
                 }
                 , field: 'upfile'
+            });
+        }
+    });
+
+    //监听复选 ‘wsp’
+    form.on('checkbox(wsp)', function(data){
+        if(data.elem.checked){
+            table.reload(Leaveapp.tableId, {
+                where: {
+                    sx: 'wsp'
+                }
+            });
+        } else {
+            table.reload(Leaveapp.tableId, {
+                where: {
+                    sx: null
+                }
             });
         }
     });

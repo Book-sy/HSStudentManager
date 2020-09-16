@@ -1,5 +1,7 @@
 package cn.stylefeng.guns.business.leaveApp.controller;
 
+import cn.afterturn.easypoi.excel.ExcelExportUtil;
+import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
 import cn.hutool.core.io.FileUtil;
 import cn.stylefeng.guns.base.auth.annotion.Permission;
 import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
@@ -29,6 +31,7 @@ import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
+import org.apache.poi.ss.usermodel.Workbook;
 import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -38,6 +41,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 
+import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
@@ -85,7 +89,7 @@ public class LeaveappController extends BaseController {
      * @Date 2020-09-02
      */
     @RequestMapping("")
-    @Permission({Const.ADMIN_NAME, Const.FDY_NAME, Const.XY_NAME, Const.BZ_NAME,Const.BZR_NAME})
+    @Permission({Const.ADMIN_NAME, Const.FDYZL_NAME,Const.FDY_NAME, Const.XY_NAME, Const.BZ_NAME, Const.BZR_NAME})
     public String index() {
         return PREFIX + "/leaveapp.html";
     }
@@ -134,6 +138,19 @@ public class LeaveappController extends BaseController {
     @RequestMapping("/sign")
     public String sign() {
         return PREFIX + "/leaveapp_sign.html";
+    }
+
+
+    /**
+     * 查看递交单数
+     *
+     * @author 韩硕
+     * @Date 2020-09-02
+     */
+    @ResponseBody
+    @RequestMapping("/getCount")
+    public Integer getCount() {
+        return leaveappService.getCount().getNum();
     }
 
     /**
@@ -227,11 +244,11 @@ public class LeaveappController extends BaseController {
         LayuiPageInfo pageBySpec = this.leaveappService.findPageBySpec(leaveappParam);
         for (Object datum : pageBySpec.getData()) {
             LeaveappResult data = (LeaveappResult) datum;
-            data.setShenfenzheng("******"+data.getShenfenzheng().substring(16,18));
+            data.setShenfenzheng("******" + data.getShenfenzheng().substring(16, 18));
             try {
-                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(6, 10));
-                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(6, 10));
-            } catch (Exception e){
+                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(6, 11));
+                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(6, 11));
+            } catch (Exception e) {
                 data.setPhone("***********");
                 data.setMyPhone("***********");
             }
@@ -247,26 +264,42 @@ public class LeaveappController extends BaseController {
      * @Date 2020-09-02
      */
     @ResponseBody
-    @Permission({Const.ADMIN_NAME, Const.FDY_NAME, Const.XY_NAME, Const.BZ_NAME,Const.BZR_NAME})
+    @Permission({Const.ADMIN_NAME, Const.FDYZL_NAME,Const.FDY_NAME, Const.XY_NAME, Const.BZ_NAME, Const.BZR_NAME})
     @RequestMapping("/list")
     public LayuiPageInfo list(LeaveappParam leaveappParam) {
 
         LoginUser us = LoginContextHolder.getContext().getUser();
 
+        String sx;
+        if ((sx = leaveappParam.getSx()) != null) {
+            if (sx.equals("wsp")) {
+                for (String roleName : us.getRoleNames()) {
+                    if (roleName.equals("辅导员")) {
+                        leaveappParam.setFudaoyuanyijian("");
+                    } else if (roleName.equals("学院领导")) {
+                        leaveappParam.setXueyuanyijian("");
+                    }
+                }
+            }
+        }
+
         for (String roleName : us.getRoleNames()) {
             if (roleName.equals("学院领导")) {
                 leaveappParam.setFudaoyuanyijian("通过");
+                leaveappParam.setOtheryijian("通过");
+            } else if (roleName.equals("辅导员")) {
+                leaveappParam.setOtheryijian("通过");
             }
         }
         leaveappParam.setDeptId(us.getDeptId());
         LayuiPageInfo pageBySpec = this.leaveappService.findPageBySpec(leaveappParam);
         for (Object datum : pageBySpec.getData()) {
             LeaveappResult data = (LeaveappResult) datum;
-            data.setShenfenzheng("******"+data.getShenfenzheng().substring(16,18));
+            data.setShenfenzheng("******" + data.getShenfenzheng().substring(16, 18));
             try {
-                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(6, 10));
-                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(6, 10));
-            } catch (Exception e){
+                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(6, 11));
+                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(6, 11));
+            } catch (Exception e) {
                 data.setPhone("***********");
                 data.setMyPhone("***********");
             }
@@ -282,7 +315,7 @@ public class LeaveappController extends BaseController {
      * @Date 2020-08-25
      */
     @RequestMapping("/sp")
-    @Permission({Const.ADMIN_NAME, Const.FDY_NAME, Const.XY_NAME, Const.BZ_NAME, Const.BZR_NAME})
+    @Permission({Const.ADMIN_NAME, Const.FDYZL_NAME,Const.FDY_NAME, Const.XY_NAME, Const.BZ_NAME, Const.BZR_NAME})
     @ResponseBody
     public ResponseData sp(LeaveappParam leaveParam) {
         LoginUser us = LoginContextHolder.getContext().getUser();
@@ -292,7 +325,7 @@ public class LeaveappController extends BaseController {
         spQxParam.setDeptId(us.getDeptId());
         SpQxResult map = leaveappService.lookSpQx(spQxParam);
 
-        if(map.getNum() == 0)
+        if (map.getNum() == 0)
             return ResponseData.error("您没有此权限");
 
         for (String roleName : us.getRoleNames()) {
@@ -304,20 +337,115 @@ public class LeaveappController extends BaseController {
                 leaveParam.setFudaoyuanyijian(leaveParam.getYj());
                 leaveParam.setFudaoyuan(us.getId());
                 leaveParam.setFudaoyuanTime(new Date());
-            } else if (roleName.equals("班主任")) {
-                leaveParam.setBanzhurenyijian(leaveParam.getYj());
-                leaveParam.setBanzhuren(us.getId());
-                leaveParam.setBanzhurenTime(new Date());
-            } else if (roleName.equals("班长")) {
-                leaveParam.setBanzhangyijian(leaveParam.getYj());
-                leaveParam.setBanzhang(us.getId());
-                leaveParam.setBanzhangTime(new Date());
+            } else {
+                leaveParam.setOtheryijian(leaveParam.getYj());
+                leaveParam.setOther(us.getId());
+                leaveParam.setOthertime(new Date());
             }
         }
         this.leaveappService.update(leaveParam);
         return ResponseData.success();
     }
 
+
+    /**
+     * 获取Excel导出文件
+     *
+     * @author hs
+     * @date 2020/9/13 14:50
+     * @version 1.0
+     */
+    @RequestMapping("/getExcel")
+    @Permission({Const.ADMIN_NAME, Const.FDY_NAME, Const.XY_NAME})
+    public void getExcel(Date starTime, Date endTime, HttpServletResponse response) {
+
+        LoginUser us = LoginContextHolder.getContext().getUser();
+        SimpleDateFormat dateTime = new SimpleDateFormat("yyyy-MM-dd hh-mm-ss");
+        SimpleDateFormat date = new SimpleDateFormat("yyyy-MM-dd");
+        String dt = date.format(starTime) + " ~ " + date.format(endTime);
+        String filename = dt + " - 出校申请汇总表";
+        //模板文件
+        FileInfo fileInfo = fileInfoService.getById(2);
+        TemplateExportParams params = new TemplateExportParams(fileInfo.getFilePath(), true);
+        //总模板Map
+        Map<String, Object> map = new HashMap<>();
+        map.put("date", dt);
+        List<Map<String, CharSequence>> blue = new ArrayList<>();
+        List<Map<String, CharSequence>> yellow = new ArrayList<>();
+
+        LeaveappParam leaveappParam = new LeaveappParam();
+        leaveappParam.setStartTime(starTime);
+        leaveappParam.setEndTime(endTime);
+        leaveappParam.setDeptId(us.getDeptId());
+        leaveappParam.setXueyuanyijian("通过");
+        leaveappParam.setFudaoyuanyijian("通过");
+        int blueNum = 1, yellowNum = 1;
+
+        ExecutorService executor = Executors.newFixedThreadPool(6);
+        for (LeaveappResult leaveappResult : leaveappService.findListBySpec(leaveappParam)) {
+            Map<String, CharSequence> lm = new HashMap<>();
+            lm.put("date", date.format(leaveappResult.getAppTime()));
+            lm.put("xueyuan", leaveappResult.getXueyuan());
+            lm.put("name", leaveappResult.getName());
+            lm.put("sex", leaveappResult.getSex().equals("M")?"男":"女");
+            lm.put("xh", leaveappResult.getXh());
+            lm.put("class", leaveappResult.getDn());
+            lm.put("xq", leaveappResult.getXiaoqu());
+            lm.put("gy", leaveappResult.getSushehao());
+            lm.put("ss", leaveappResult.getSushehao());
+            lm.put("sfz", leaveappResult.getShenfenzheng());
+            lm.put("myphone", leaveappResult.getMyPhone());
+            lm.put("reason", leaveappResult.getReason());
+            lm.put("leavetime", dateTime.format(leaveappResult.getStartTime()));
+            lm.put("backtime", dateTime.format(leaveappResult.getEndTime()));
+            lm.put("jinjilianxiren", leaveappResult.getJinjilianxiren());
+            lm.put("guanxi", leaveappResult.getGuanxi());
+            lm.put("phone", leaveappResult.getPhone());
+            lm.put("address", leaveappResult.getAddress());
+            StringBuffer sb = new StringBuffer();
+            for (String s : leaveappResult.getChuxingguiji().split("\\|")) {
+                executor.submit(new Runnable() {
+                    @Override
+                    public void run() {
+                        JSONObject json = new JSONObject(transport("https://restapi.amap.com/v3/geocode/regeo?key=caa408034c27b0552255ab633c15858d&radius=0&extensions=all&batch=false&roadlevel=0&location=" + s, ""));
+                        synchronized (LeaveappController.this) {
+                            sb.append(" ==> " + json.getJSONObject("regeocode").getString("formatted_address"));
+                        }
+                    }
+                });
+            }
+            lm.put("guiji",sb);
+            if(leaveappResult.getNature()) {
+                lm.put("id", blueNum+++"");
+                blue.add(lm);
+            } else {
+                lm.put("id", yellowNum+++"");
+                yellow.add(lm);
+            }
+        }
+        map.put("blue", blue);
+        map.put("yellow", yellow);
+        executor.shutdown();
+        try {
+
+            // 清空response
+            response.reset();
+            // 设置response的Header
+            response.addHeader("Content-Disposition", "attachment;filename=" + new String((filename + ".xlsx").getBytes("UTF-8"), "iso-8859-1"));
+            response.setContentType("application/octet-stream");
+
+            executor.awaitTermination(60, TimeUnit.SECONDS);
+            //Writer out = new BufferedWriter(new OutputStreamWriter(response.getOutputStream(), "utf-8"));
+            OutputStream outputStream = response.getOutputStream();
+            //模板生成、输出流
+            Workbook workbook = ExcelExportUtil.exportExcel(params, map);
+            workbook.write(outputStream);
+            outputStream.flush();
+            outputStream.close();
+        } catch (InterruptedException | IOException e) {
+            e.printStackTrace();
+        }
+    }
 
     /**
      * 获取文件
@@ -426,7 +554,6 @@ public class LeaveappController extends BaseController {
                 //指定路径的第二种方式,我的路径是C:/a.ftl
                 FileInfo fileInfo = fileInfoService.getById(1);
                 configuration.setDirectoryForTemplateLoading(new File(fileInfo.getFilePath()));
-
 
                 //以utf-8的编码读取ftl文件
                 Template t = configuration.getTemplate("sqb.xml", "UTF-8");

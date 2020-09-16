@@ -30,7 +30,10 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'layer'], function () {
             ajax.set({
                 img: convertCanvasToImage(canvas)
             });
-            ajax.start();
+            parent.layer.load();
+            setTimeout(function () {
+                ajax.start();
+            })
         });
     };
     $(function() {

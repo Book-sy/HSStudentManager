@@ -91,12 +91,14 @@ function add(e) {
     positions.push(position);
     layui.use('ax', function () {
         var $ax = layui.ax;
-        new $ax("https://restapi.amap.com/v3/geocode/regeo?key=caa408034c27b0552255ab633c15858d&location=" + e.lnglat.getLng() + "," + e.lnglat.getLat() + "+&poitype=&radius=10&extensions=all&batch=false&roadlevel=0", function (data) {
-            var cxgj = document.getElementById("chuxinggj");
-            cxgj.value = cxgj.value + (' ==> ' + data.regeocode.formatted_address + '\n');
-        }, function (data) {
-            Feng.error("地点信息查询失败" + data.responseJSON.message)
-        }).start();
+        setTimeout(function () {
+            new $ax("https://restapi.amap.com/v3/geocode/regeo?key=caa408034c27b0552255ab633c15858d&location=" + e.lnglat.getLng() + "," + e.lnglat.getLat() + "+&poitype=&radius=10&extensions=all&batch=false&roadlevel=0", function (data) {
+                var cxgj = document.getElementById("chuxinggj");
+                cxgj.value = cxgj.value + (' ==> ' + data.regeocode.formatted_address + '\n');
+            }, function (data) {
+                Feng.error("地点信息查询失败" + data.responseJSON.message)
+            }).start();
+        })
         layer.close(ina);
     })
 }
@@ -145,10 +147,10 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload', 'layer'], function () {
             console.log(res.fileId);
             f = res.fileId;
             layer.msg('上传成功');
-            layer.close(inz);
+            layer.closeAll('loading');
         }
         ,error: function(index, upload){
-            layer.close(inz); //关闭loading
+            layer.closeAll('loading');
         }
         ,field: 'upfile'
     });
@@ -188,19 +190,20 @@ layui.use(['form', 'admin', 'ax', 'laydate', 'upload', 'layer'], function () {
                 //关掉对话框
                 admin.closeThisDialog();
 
-                layer.close(inx);
+                layer.closeAll('loading');
 
             }, function (data) {
                 Feng.error("添加失败！" + data.responseJSON.message)
             });
-            var inx = layer.load();
             data.field.chuxingguiji = positions.join('|');
             data.field.sign = document.getElementById("sign").value;
             data.field.file = f;
             data.field.startTime = data.field.leaveDate +' '+ data.field.leaveTime;
             data.field.endTime = data.field.backDate +' '+ data.field.backTime;
             ajax.set(data.field);
-            ajax.start();
+            setTimeout(function () {
+                ajax.start();
+            })
         }
 
         layer.open({

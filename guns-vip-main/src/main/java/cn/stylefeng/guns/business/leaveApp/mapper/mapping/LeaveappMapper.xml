@@ -20,18 +20,18 @@
         <result column="address" property="address"/>
         <result column="xueyuanyijian" property="xueyuanyijian"/>
         <result column="time" property="time"/>
-        <result column="banzhangyijian" property="banzhangyijian"/>
-        <result column="banzhang_time" property="banzhangTime"/>
-        <result column="banzhurenyijian" property="banzhurenyijian"/>
-        <result column="banzhuren_time" property="banzhurenTime"/>
         <result column="fudaoyuanyijian" property="fudaoyuanyijian"/>
         <result column="fudaoyuan_time" property="fudaoyuanTime"/>
     </resultMap>
 
     <!-- 通用查询结果列 -->
     <sql id="Base_Column_List">
-        id AS "id", file AS "file" ,fileId AS "fileId", xueyuanlingdao AS "xueyuanlingdao", banzhang AS "banzhang", banzhuren AS "banzhuren", fudaoyuan AS "fudaoyuan",app_time AS "appTime",sys_user.user_id AS "userId", xiaoqu AS "xiaoqu", sushehao AS "sushehao", xueyuan AS "xueyuan", reason AS "reason", start_time AS "startTime", end_time AS "endTime", shenfenzheng AS "shenfenzheng", chuxingguiji AS "chuxingguiji", jinjilianxiren AS "jinjilianxiren", guanxi AS "guanxi", _leaveapp.phone AS "phone", address AS "address", xueyuanyijian AS "xueyuanyijian", time AS "time", banzhangyijian AS "banzhangyijian", banzhang_time AS "banzhangTime", banzhurenyijian AS "banzhurenyijian", banzhuren_time AS "banzhurenTime", fudaoyuanyijian AS "fudaoyuanyijian", fudaoyuan_time AS "fudaoyuanTime"
+        id AS "id", nature AS "nature",file AS "file" ,fileId AS "fileId", xueyuanlingdao AS "xueyuanlingdao", fudaoyuan AS "fudaoyuan",app_time AS "appTime",sys_user.user_id AS "userId", xiaoqu AS "xiaoqu", sushehao AS "sushehao", xueyuan AS "xueyuan", reason AS "reason", start_time AS "startTime", end_time AS "endTime", shenfenzheng AS "shenfenzheng", chuxingguiji AS "chuxingguiji", jinjilianxiren AS "jinjilianxiren", guanxi AS "guanxi", _leaveapp.phone AS "phone", address AS "address", xueyuanyijian AS "xueyuanyijian", time AS "time",otheryijian ,other, othertime, fudaoyuanyijian AS "fudaoyuanyijian", fudaoyuan_time AS "fudaoyuanTime"
     </sql>
+
+    <select id="getCount" resultType="cn.stylefeng.guns.business.leaveApp.model.result.SpQxResult">
+        SELECT COUNT(1) AS num FROM _leaveapp
+    </select>
 
     <select id="spQx" resultType="cn.stylefeng.guns.business.leaveApp.model.result.SpQxResult"
             parameterType="cn.stylefeng.guns.business.leaveApp.model.params.SpQxParam">
@@ -44,8 +44,8 @@
     <select id="customList" resultType="cn.stylefeng.guns.business.leaveApp.model.result.LeaveappResult"
             parameterType="cn.stylefeng.guns.business.leaveApp.model.params.LeaveappParam">
         select
-        <include refid="Base_Column_List"/>
-        from _leaveapp where 1 = 1
+        <include refid="Base_Column_List"/> ,sys_user.sex AS "sex", sys_user.account AS "xh", sys_user.dept_id AS "dept_id", sys_dept.pid ,sys_dept.dept_id, simple_name AS "dn", sys_user.name AS "name",sys_user.phone AS "myPhone"
+        from _leaveapp LEFT OUTER  JOIN sys_user ON sys_user.user_id = _leaveapp.user_id LEFT OUTER JOIN sys_dept ON sys_dept.dept_id = sys_user.dept_id where 1 = 1
         <if test="paramCondition.id != null and paramCondition.id != ''">
             and id like CONCAT('%',#{paramCondition.id},'%')
         </if>
@@ -64,11 +64,8 @@
         <if test="paramCondition.reason != null and paramCondition.reason != ''">
             and reason like CONCAT('%',#{paramCondition.reason},'%')
         </if>
-        <if test="paramCondition.startTime != null and paramCondition.startTime != ''">
-            and start_time like CONCAT('%',#{paramCondition.startTime},'%')
-        </if>
-        <if test="paramCondition.endTime != null and paramCondition.endTime != ''">
-            and end_time like CONCAT('%',#{paramCondition.endTime},'%')
+        <if test="paramCondition.startTime != null and paramCondition.endTime != null ">
+            and app_time between #{paramCondition.startTime} and #{paramCondition.endTime}
         </if>
         <if test="paramCondition.shenfenzheng != null and paramCondition.shenfenzheng != ''">
             and shenfenzheng like CONCAT('%',#{paramCondition.shenfenzheng},'%')
@@ -88,17 +85,14 @@
         <if test="paramCondition.address != null and paramCondition.address != ''">
             and address like CONCAT('%',#{paramCondition.address},'%')
         </if>
-        <if test="paramCondition.xueyuanyijian != null and paramCondition.xueyuanyijian != ''">
-            and xueyuanyijian like CONCAT('%',#{paramCondition.xueyuanyijian},'%')
+        <if test="paramCondition.xueyuanyijian != null">
+            and xueyuanyijian like CONCAT(#{paramCondition.xueyuanyijian})
+        </if>
+        <if test="paramCondition.otheryijian != null">
+            and (otheryijian is null or otheryijian = '通过' or otheryijian = '')
         </if>
         <if test="paramCondition.time != null and paramCondition.time != ''">
             and time like CONCAT('%',#{paramCondition.time},'%')
-        </if>
-        <if test="paramCondition.banzhangyijian != null and paramCondition.banzhangyijian != ''">
-            and banzhangyijian like CONCAT('%',#{paramCondition.banzhangyijian},'%')
-        </if>
-        <if test="paramCondition.banzhangTime != null and paramCondition.banzhangTime != ''">
-            and banzhang_time like CONCAT('%',#{paramCondition.banzhangTime},'%')
         </if>
         <if test="paramCondition.banzhurenyijian != null and paramCondition.banzhurenyijian != ''">
             and banzhurenyijian like CONCAT('%',#{paramCondition.banzhurenyijian},'%')
@@ -106,11 +100,14 @@
         <if test="paramCondition.banzhurenTime != null and paramCondition.banzhurenTime != ''">
             and banzhuren_time like CONCAT('%',#{paramCondition.banzhurenTime},'%')
         </if>
-        <if test="paramCondition.fudaoyuanyijian != null and paramCondition.fudaoyuanyijian != ''">
-            and fudaoyuanyijian like CONCAT('%',#{paramCondition.fudaoyuanyijian},'%')
+        <if test="paramCondition.fudaoyuanyijian != null">
+            and fudaoyuanyijian like CONCAT(#{paramCondition.fudaoyuanyijian})
         </if>
         <if test="paramCondition.fudaoyuanTime != null and paramCondition.fudaoyuanTime != ''">
             and fudaoyuan_time like CONCAT('%',#{paramCondition.fudaoyuanTime},'%')
+        </if>
+        <if test="paramCondition.deptId != null and paramCondition.deptId != ''">
+            and (sys_user.dept_id = #{paramCondition.deptId} or sys_dept.dept_id in ( select dept_id from sys_dept where pids like CONCAT('%$[', #{paramCondition.deptId}, '$]%') escape '$' ))
         </if>
     </select>
 
@@ -166,12 +163,6 @@
         </if>
         <if test="paramCondition.time != null and paramCondition.time != ''">
             and time like CONCAT('%',#{paramCondition.time},'%')
-        </if>
-        <if test="paramCondition.banzhangyijian != null and paramCondition.banzhangyijian != ''">
-            and banzhangyijian like CONCAT('%',#{paramCondition.banzhangyijian},'%')
-        </if>
-        <if test="paramCondition.banzhangTime != null and paramCondition.banzhangTime != ''">
-            and banzhang_time like CONCAT('%',#{paramCondition.banzhangTime},'%')
         </if>
         <if test="paramCondition.banzhurenyijian != null and paramCondition.banzhurenyijian != ''">
             and banzhurenyijian like CONCAT('%',#{paramCondition.banzhurenyijian},'%')
@@ -240,20 +231,17 @@
         <if test="paramCondition.time != null and paramCondition.time != ''">
             and time like CONCAT('%',#{paramCondition.time},'%')
         </if>
-        <if test="paramCondition.banzhangyijian != null and paramCondition.banzhangyijian != ''">
-            and banzhangyijian like CONCAT('%',#{paramCondition.banzhangyijian},'%')
-        </if>
-        <if test="paramCondition.banzhangTime != null and paramCondition.banzhangTime != ''">
-            and banzhang_time like CONCAT('%',#{paramCondition.banzhangTime},'%')
-        </if>
-        <if test="paramCondition.banzhurenyijian != null and paramCondition.banzhurenyijian != ''">
-            and banzhurenyijian like CONCAT('%',#{paramCondition.banzhurenyijian},'%')
-        </if>
-        <if test="paramCondition.banzhurenTime != null and paramCondition.banzhurenTime != ''">
-            and banzhuren_time like CONCAT('%',#{paramCondition.banzhurenTime},'%')
-        </if>
         <if test="paramCondition.fudaoyuanyijian != null and paramCondition.fudaoyuanyijian != ''">
             and fudaoyuanyijian like CONCAT('%',#{paramCondition.fudaoyuanyijian},'%')
+        </if>
+        <if test="paramCondition.fudaoyuanyijian == ''">
+            and fudaoyuanyijian is null
+        </if>
+        <if test="paramCondition.xueyuanyijian == ''">
+            and xueyuanyijian is null
+        </if>
+        <if test="paramCondition.otheryijian != null">
+            and (otheryijian is null or otheryijian = '通过' or otheryijian = '')
         </if>
         <if test="paramCondition.fudaoyuanTime != null and paramCondition.fudaoyuanTime != ''">
             and fudaoyuan_time like CONCAT('%',#{paramCondition.fudaoyuanTime},'%')
@@ -323,18 +311,6 @@
         </if>
         <if test="paramCondition.time != null and paramCondition.time != ''">
             and time like CONCAT('%',#{paramCondition.time},'%')
-        </if>
-        <if test="paramCondition.banzhangyijian != null and paramCondition.banzhangyijian != ''">
-            and banzhangyijian like CONCAT('%',#{paramCondition.banzhangyijian},'%')
-        </if>
-        <if test="paramCondition.banzhangTime != null and paramCondition.banzhangTime != ''">
-            and banzhang_time like CONCAT('%',#{paramCondition.banzhangTime},'%')
-        </if>
-        <if test="paramCondition.banzhurenyijian != null and paramCondition.banzhurenyijian != ''">
-            and banzhurenyijian like CONCAT('%',#{paramCondition.banzhurenyijian},'%')
-        </if>
-        <if test="paramCondition.banzhurenTime != null and paramCondition.banzhurenTime != ''">
-            and banzhuren_time like CONCAT('%',#{paramCondition.banzhurenTime},'%')
         </if>
         <if test="paramCondition.fudaoyuanyijian != null and paramCondition.fudaoyuanyijian != ''">
             and fudaoyuanyijian like CONCAT('%',#{paramCondition.fudaoyuanyijian},'%')

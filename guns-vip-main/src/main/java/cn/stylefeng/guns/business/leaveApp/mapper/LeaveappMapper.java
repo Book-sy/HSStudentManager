@@ -47,12 +47,20 @@ public interface LeaveappMapper extends BaseMapper<Leaveapp> {
     Page<LeaveappResult> customPageList(@Param("page") Page page, @Param("paramCondition") LeaveappParam paramCondition);
 
     /**
-     * 获取分页实体列表
+     * 审批表单权限验证
      *
      * @author 韩硕
      * @Date 2020-09-02
      */
     SpQxResult spQx(@Param("paramCondition") SpQxParam paramCondition);
+
+    /**
+     * 审批表单权限验证
+     *
+     * @author 韩硕
+     * @Date 2020-09-02
+     */
+    SpQxResult getCount();
 
     /**
      * 获取分页map列表

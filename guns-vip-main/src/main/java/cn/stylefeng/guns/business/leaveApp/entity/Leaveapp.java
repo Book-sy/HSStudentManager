@@ -23,14 +23,8 @@ public class Leaveapp implements Serializable {
     @TableField("xueyuanlingdao")
     private Long xueyuanlingdao;
 
-    @TableField("banzhang")
-    private Long banzhang;
-
     @TableField("fudaoyuan")
     private Long fudaoyuan;
-
-    @TableField("banzhuren")
-    private Long banzhuren;
 
     @TableId("id")
     private Long id;
@@ -83,17 +77,14 @@ public class Leaveapp implements Serializable {
     @TableField("time")
     private Date time;
 
-    @TableField("banzhangyijian")
-    private String banzhangyijian;
+    @TableField("otheryijian")
+    private String otheryijian;
 
-    @TableField("banzhang_time")
-    private Date banzhangTime;
+    @TableField("othertime")
+    private Date othertime;
 
-    @TableField("banzhurenyijian")
-    private String banzhurenyijian;
-
-    @TableField("banzhuren_time")
-    private Date banzhurenTime;
+    @TableField("other")
+    private Long other;
 
     @TableField("fudaoyuanyijian")
     private String fudaoyuanyijian;
@@ -109,6 +100,17 @@ public class Leaveapp implements Serializable {
 
     @TableField("file")
     private Long file;
+
+    @TableField("nature")
+    private Boolean nature;
+
+    public Boolean getNature() {
+        return nature;
+    }
+
+    public void setNature(Boolean nature) {
+        this.nature = nature;
+    }
 
     public Long getFile() {
         return file;
@@ -146,28 +148,12 @@ public class Leaveapp implements Serializable {
         this.xueyuanlingdao = xueyuanlingdao;
     }
 
-    public Long getBanzhang() {
-        return banzhang;
-    }
-
-    public void setBanzhang(Long banzhang) {
-        this.banzhang = banzhang;
-    }
-
     public Long getFudaoyuan() {
         return fudaoyuan;
     }
 
     public void setFudaoyuan(Long fudaoyuan) {
         this.fudaoyuan = fudaoyuan;
-    }
-
-    public Long getBanzhuren() {
-        return banzhuren;
-    }
-
-    public void setBanzhuren(Long banzhuren) {
-        this.banzhuren = banzhuren;
     }
 
     public Date getAppTime() {
@@ -306,36 +292,28 @@ public class Leaveapp implements Serializable {
         this.time = time;
     }
 
-    public String getBanzhangyijian() {
-        return banzhangyijian;
+    public String getOtheryijian() {
+        return otheryijian;
     }
 
-    public void setBanzhangyijian(String banzhangyijian) {
-        this.banzhangyijian = banzhangyijian;
+    public void setOtheryijian(String otheryijian) {
+        this.otheryijian = otheryijian;
     }
 
-    public Date getBanzhangTime() {
-        return banzhangTime;
+    public Date getOthertime() {
+        return othertime;
     }
 
-    public void setBanzhangTime(Date banzhangTime) {
-        this.banzhangTime = banzhangTime;
+    public void setOthertime(Date othertime) {
+        this.othertime = othertime;
     }
 
-    public String getBanzhurenyijian() {
-        return banzhurenyijian;
+    public Long getOther() {
+        return other;
     }
 
-    public void setBanzhurenyijian(String banzhurenyijian) {
-        this.banzhurenyijian = banzhurenyijian;
-    }
-
-    public Date getBanzhurenTime() {
-        return banzhurenTime;
-    }
-
-    public void setBanzhurenTime(Date banzhurenTime) {
-        this.banzhurenTime = banzhurenTime;
+    public void setOther(Long other) {
+        this.other = other;
     }
 
     public String getFudaoyuanyijian() {
@@ -373,10 +351,6 @@ public class Leaveapp implements Serializable {
         ", address=" + address +
         ", xueyuanyijian=" + xueyuanyijian +
         ", time=" + time +
-        ", banzhangyijian=" + banzhangyijian +
-        ", banzhangTime=" + banzhangTime +
-        ", banzhurenyijian=" + banzhurenyijian +
-        ", banzhurenTime=" + banzhurenTime +
         ", fudaoyuanyijian=" + fudaoyuanyijian +
         ", fudaoyuanTime=" + fudaoyuanTime +
         "}";

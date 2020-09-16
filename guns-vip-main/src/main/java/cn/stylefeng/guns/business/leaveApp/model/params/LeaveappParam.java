@@ -20,14 +20,14 @@ public class LeaveappParam implements Serializable, BaseValidatingParam {
 
     private static final long serialVersionUID = 1L;
 
+    //临时变量
+    private String sx;
+
+    private Boolean nature;
 
     private Long id;
 
     private Long userId;
-
-    private Long banzhuren;
-
-    private Long banzhang;
 
     private Long fudaoyuan;
 
@@ -67,13 +67,11 @@ public class LeaveappParam implements Serializable, BaseValidatingParam {
 
     private Date appTime;
 
-    private String banzhangyijian;
+    private String otheryijian;
 
-    private Date banzhangTime;
+    private Date othertime;
 
-    private String banzhurenyijian;
-
-    private Date banzhurenTime;
+    private Long other;
 
     private String fudaoyuanyijian;
 

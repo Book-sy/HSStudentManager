@@ -23,7 +23,10 @@ package cn.stylefeng.guns.sys.core.constant;
  */
 public interface Const {
 
-
+    /**
+     * 辅导员助理角色的名字
+     */
+    String FDYZL_NAME = "FDYZL";
     /**
      * 辅导员角色的名字
      */
