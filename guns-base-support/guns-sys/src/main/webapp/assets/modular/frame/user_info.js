@@ -1,10 +1,12 @@
-layui.use(['form', 'upload', 'element', 'ax', 'laydate'], function () {
+layui.use(['jquery', 'index', 'table','form', 'upload', 'element', 'ax', 'laydate', 'citypicker'], function () {
     var $ = layui.jquery;
     var form = layui.form;
     var upload = layui.upload;
     var element = layui.element;
     var $ax = layui.ax;
     var laydate = layui.laydate;
+    var cityPicker = layui.citypicker;
+    var table = layui.table;
 
     //渲染时间选择框
     laydate.render({
@@ -17,9 +19,11 @@ layui.use(['form', 'upload', 'element', 'ax', 'laydate'], function () {
 
     //用这个方法必须用在class有layui-form的元素上
     form.val('userInfoForm', result.data);
+    form.val('otherUserInfoForm', result.data);
+    form.val('familyUserInfoForm', result.data);
 
     //表单提交事件
-    form.on('submit(userInfoSubmit)', function (data) {
+    form.on('submit()', function (data) {
         var ajax = new $ax(Feng.ctxPath + "/mgr/edit", function (data) {
             Feng.success("修改成功!");
         }, function (data) {
@@ -27,6 +31,21 @@ layui.use(['form', 'upload', 'element', 'ax', 'laydate'], function () {
         });
         ajax.set(data.field);
         ajax.start();
+    });
+
+
+    new cityPicker("#natives", {
+        provincename: "provinceId",
+        cityname: "cityId",
+        districtname: "districtId",
+        level: 'cityId',
+    });
+
+    new cityPicker("#origin", {
+        provincename: "provinceId",
+        cityname: "cityId",
+        districtname: "districtId",
+        level: 'cityId',
     });
 
     upload.render({

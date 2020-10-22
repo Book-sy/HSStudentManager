@@ -13,8 +13,8 @@
     display: inline-block;
     outline: 0;
     -webkit-tap-highlight-color: rgba(0, 0, 0, 0);
-    /* border: 1px solid #ccc;*/
-    border: 1px solid #e6e6e6;
+   /* border: 1px solid #ccc;*/
+      border: 1px solid #e6e6e6;
     background-color: #fff;
     color: #ccc;
     width: 100%;
@@ -24,13 +24,13 @@
 
 .city-picker-span > .placeholder {
     color: #aaa;
-    padding-left: 10px;
+    padding-left:10px;
 }
 
 .city-picker-span > .arrow {
     position: absolute;
     top: 50%;
-    right: 8px;
+    right: 30px;
     width: 10px;
     margin-top: -3px;
     height: 5px;
@@ -68,12 +68,12 @@
     display: none;
     min-width: 330px;
     margin-bottom: 20px;
-
+   
 }
 
 .city-select-wrap {
     box-shadow: 0 0px 5px rgba(0, 0, 0, 0.2);
-    border: 1px solid #ddd;
+     border: 1px solid #ddd;
 }
 
 .city-select-tab {
@@ -173,7 +173,7 @@
 }
 
 .icon_ca {
-    /*background: url(/content/images/icon_ca.png) no-repeat center;*/
+    background: url(/content/images/icon_ca.png) no-repeat center;
     width: 15px;
     height: 15px;
     position: absolute;

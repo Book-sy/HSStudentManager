@@ -2,7 +2,6 @@ package cn.stylefeng.guns.business.leaveApp.controller;
 
 import cn.afterturn.easypoi.excel.ExcelExportUtil;
 import cn.afterturn.easypoi.excel.entity.TemplateExportParams;
-import cn.hutool.core.io.FileUtil;
 import cn.stylefeng.guns.base.auth.annotion.Permission;
 import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.guns.base.auth.model.LoginUser;
@@ -12,6 +11,7 @@ import cn.stylefeng.guns.business.leaveApp.model.params.LeaveappParam;
 import cn.stylefeng.guns.business.leaveApp.model.params.SpQxParam;
 import cn.stylefeng.guns.business.leaveApp.model.result.LeaveappResult;
 import cn.stylefeng.guns.business.leaveApp.model.result.SpQxResult;
+import cn.stylefeng.guns.business.leaveApp.model.result.DeptResult;
 import cn.stylefeng.guns.business.leaveApp.service.LeaveappService;
 import cn.stylefeng.guns.sys.core.constant.Const;
 import cn.stylefeng.guns.sys.modular.system.entity.Dept;
@@ -22,12 +22,10 @@ import cn.stylefeng.guns.sys.modular.system.service.DeptService;
 import cn.stylefeng.guns.sys.modular.system.service.FileInfoService;
 import cn.stylefeng.guns.sys.modular.system.service.UserService;
 import cn.stylefeng.roses.core.base.controller.BaseController;
-import cn.stylefeng.roses.core.datascope.DataScope;
 import cn.stylefeng.roses.core.reqres.response.ResponseData;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import cn.stylefeng.roses.kernel.model.exception.ServiceException;
 import com.baomidou.mybatisplus.core.toolkit.IdWorker;
-import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import freemarker.template.Configuration;
 import freemarker.template.Template;
 import freemarker.template.TemplateException;
@@ -41,14 +39,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import sun.misc.BASE64Decoder;
 
-import javax.servlet.ServletOutputStream;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.*;
 import java.math.BigDecimal;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.net.URLEncoder;
 import java.text.SimpleDateFormat;
 import java.util.*;
 import java.util.concurrent.ExecutorService;
@@ -244,11 +240,12 @@ public class LeaveappController extends BaseController {
         LayuiPageInfo pageBySpec = this.leaveappService.findPageBySpec(leaveappParam);
         for (Object datum : pageBySpec.getData()) {
             LeaveappResult data = (LeaveappResult) datum;
-            data.setShenfenzheng("******" + data.getShenfenzheng().substring(16, 18));
             try {
-                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(6, 11));
-                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(6, 11));
+                data.setShenfenzheng("******" + data.getShenfenzheng().substring(16, 18));
+                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(7, 11));
+                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(7, 11));
             } catch (Exception e) {
+                data.setShenfenzheng("***********");
                 data.setPhone("***********");
                 data.setMyPhone("***********");
             }
@@ -292,16 +289,26 @@ public class LeaveappController extends BaseController {
             }
         }
         leaveappParam.setDeptId(us.getDeptId());
+
+        if(leaveappParam.getDept()!=null && !leaveappParam.getDept().equals("")){
+            DeptResult deptResult = new DeptResult();
+            deptResult.setDeptId(leaveappParam.getDept());
+            if(getClasses().contains(deptResult)){
+                leaveappParam.setDeptId(leaveappParam.getDept());
+            }
+        }
+
         LayuiPageInfo pageBySpec = this.leaveappService.findPageBySpec(leaveappParam);
         for (Object datum : pageBySpec.getData()) {
             LeaveappResult data = (LeaveappResult) datum;
-            data.setShenfenzheng("******" + data.getShenfenzheng().substring(16, 18));
             try {
-                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(6, 11));
-                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(6, 11));
+                data.setShenfenzheng("******" + data.getShenfenzheng().substring(16, 18));
+                data.setPhone(data.getPhone().substring(0, 1) + "***" + data.getPhone().substring(7, 11));
+                data.setMyPhone(data.getMyPhone().substring(0, 1) + "***" + data.getMyPhone().substring(7, 11));
             } catch (Exception e) {
                 data.setPhone("***********");
                 data.setMyPhone("***********");
+                data.setShenfenzheng("***********");
             }
         }
 
@@ -347,6 +354,16 @@ public class LeaveappController extends BaseController {
         return ResponseData.success();
     }
 
+
+    @RequestMapping("/getClasses")
+    @Permission({Const.ADMIN_NAME, Const.FDYZL_NAME, Const.FDY_NAME, Const.XY_NAME})
+    @ResponseBody
+    public List<DeptResult> getClasses() {
+        LoginUser us = LoginContextHolder.getContext().getUser();
+        SpQxParam spQxParam = new SpQxParam();
+        spQxParam.setDeptId(us.getDeptId());
+        return leaveappService.getDept(spQxParam);
+    }
 
     /**
      * 获取Excel导出文件

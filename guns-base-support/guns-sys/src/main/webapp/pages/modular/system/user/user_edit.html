@@ -1,5 +1,9 @@
 @layout("/common/_form.html",{js:["/assets/modular/system/user/user_edit.js"],css:["/assets/common/module/formSelects/formSelects-v4.css"]}){
 
+
+<script src="/assets/common/module/city-picker/city-picker.data.js"></script>
+<link href="/assets/common/module/city-picker/city-picker.css" rel="stylesheet" />
+
 <form class="layui-form" id="userForm" lay-filter="userForm">
     <div class="layui-fluid" style="padding-bottom: 75px;">
         <div class="layui-card">
@@ -38,9 +42,120 @@
                             <input name="phone" placeholder="请输入电话" type="text" class="layui-input"/>
                         </div>
                     </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">民族:<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input type="text" name="nation" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">籍贯:<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input type="text" autocomplete="on" class="layui-input" id="natives" name="natives" readonly="readonly" data-toggle="city-picker" placeholder="请选择" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">生源地:<span style="color: red;">*</span></label>
+                        <div class="layui-input-block" >
+                            <input type="text" autocomplete="on" class="layui-input" id="origin" name="origin" data-toggle="city-picker" placeholder="请选择" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">身份证号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input type="text" name="idcard" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">家庭住址<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input type="text" name="familyaddress" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">楼号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <select name="build">
+                                <option value="" selected="">未选择</option>
+                                <option value="学一">学一</option>
+                                <option value="学二">学二</option>
+                                <option value="学三">学三</option>
+                                <option value="学四">学四</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">宿舍号<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input type="text" name="living" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">政治面貌<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <select name="polical">
+                                <option value="" selected="">未选择</option>
+                                <option value="群众">群众</option>
+                                <option value="共青团员">共青团员</option>
+                                <option value="预备党员">预备党员</option>
+                                <option value="中共党员">中共党员</option>
+                                <option value="其他">其他</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">班内职务<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <select name="clposition">
+                                <option value="" selected="">未选择</option>
+                                <option value="班长">班长</option>
+                                <option value="团支书">团支书</option>
+                                <option value="学委">学委</option>
+                                <option value="其他班委">其他班委</option>
+                                <option value="普通同学">普通同学</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">楼内职务<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <select name="ssposition">
+                                <option value="" selected="">未选择</option>
+                                <option value="楼长">楼长</option>
+                                <option value="层长">层长</option>
+                                <option value="宿舍长">宿舍长</option>
+                                <option value="普通同学">普通同学</option>
+                            </select>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">父亲姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="father" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">父亲电话</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="fatherphone" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">母亲姓名</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="mother" class="layui-input"/>
+                        </div>
+                    </div>
+                    <div class="layui-form-item">
+                        <label class="layui-form-label">母亲电话</label>
+                        <div class="layui-input-block">
+                            <input type="text" name="motherphone" class="layui-input"/>
+                        </div>
+                    </div>
                 </div>
             </div>
         </div>
+        @if(shiro.hasPermission("/user/senior")){
         <div class="layui-card">
             <div class="layui-card-header">职务信息</div>
             <div class="layui-card-body">
@@ -62,6 +177,7 @@
                 </div>
             </div>
         </div>
+        @}
     </div>
     <div class="form-group-bottom text-center">
         <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>

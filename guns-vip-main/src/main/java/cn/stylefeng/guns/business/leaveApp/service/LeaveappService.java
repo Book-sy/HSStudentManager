@@ -6,10 +6,10 @@ import cn.stylefeng.guns.business.leaveApp.model.params.LeaveappParam;
 import cn.stylefeng.guns.business.leaveApp.model.params.SpQxParam;
 import cn.stylefeng.guns.business.leaveApp.model.result.LeaveappResult;
 import cn.stylefeng.guns.business.leaveApp.model.result.SpQxResult;
+import cn.stylefeng.guns.business.leaveApp.model.result.DeptResult;
 import com.baomidou.mybatisplus.extension.service.IService;
 
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -70,6 +70,8 @@ public interface LeaveappService extends IService<Leaveapp> {
      LayuiPageInfo findPageBySpec(LeaveappParam param);
 
     SpQxResult lookSpQx(SpQxParam param);
+
+    List<DeptResult> getDept(SpQxParam spQxParam);
 
     SpQxResult getCount();
 }

@@ -48,6 +48,19 @@ public class LayuiTreeNode implements Tree {
 
     private List<LayuiTreeNode> children = new ArrayList<>();
 
+    public LayuiTreeNode() {
+    }
+
+    public LayuiTreeNode(Long id, Long pid, String title, Boolean spread, Boolean checked, Boolean disabled, List<LayuiTreeNode> children) {
+        this.id = id;
+        this.pid = pid;
+        this.title = title;
+        this.spread = spread;
+        this.checked = checked;
+        this.disabled = disabled;
+        this.children = children;
+    }
+
     @Override
     public String getNodeId() {
         if (ToolUtil.isNotEmpty(id)) {

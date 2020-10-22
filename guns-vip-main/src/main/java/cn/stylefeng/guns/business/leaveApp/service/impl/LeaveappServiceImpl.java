@@ -8,8 +8,8 @@ import cn.stylefeng.guns.business.leaveApp.model.params.LeaveappParam;
 import cn.stylefeng.guns.business.leaveApp.model.params.SpQxParam;
 import cn.stylefeng.guns.business.leaveApp.model.result.LeaveappResult;
 import cn.stylefeng.guns.business.leaveApp.model.result.SpQxResult;
+import cn.stylefeng.guns.business.leaveApp.model.result.DeptResult;
 import  cn.stylefeng.guns.business.leaveApp.service.LeaveappService;
-import cn.stylefeng.roses.core.datascope.DataScope;
 import cn.stylefeng.roses.core.util.ToolUtil;
 import com.baomidou.mybatisplus.core.metadata.IPage;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
@@ -18,7 +18,6 @@ import org.springframework.stereotype.Service;
 
 import java.io.Serializable;
 import java.util.List;
-import java.util.Map;
 
 /**
  * <p>
@@ -71,6 +70,11 @@ public class LeaveappServiceImpl extends ServiceImpl<LeaveappMapper, Leaveapp> i
     public SpQxResult lookSpQx(SpQxParam param){
         SpQxResult map = this.baseMapper.spQx(param);
         return map;
+    }
+
+    @Override
+    public List<DeptResult> getDept(SpQxParam spQxParam) {
+        return this.baseMapper.getDept(spQxParam);
     }
 
     @Override

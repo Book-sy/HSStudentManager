@@ -97,6 +97,74 @@ public class User implements Serializable {
     private String status;
 
     /**
+     * 民族
+     */
+    @TableField("nation")
+    private String nation;
+
+    /**
+     * 籍贯
+     */
+    @TableField("natives")
+    private String natives;
+
+    /**
+     * 楼号
+     */
+    @TableField("build")
+    private String build;
+
+    /**
+     * 宿舍号
+     */
+    @TableField("living")
+    private String living;
+
+    /**
+     * 生源地
+     */
+    @TableField("origin")
+    private String origin;
+
+    /**
+     * 家庭住址
+     */
+    @TableField("familyaddress")
+    private String familyaddress;
+
+    /**
+     * 身份证号
+     */
+    @TableField("idcard")
+    private String idcard;
+
+    /**
+     * 政治面貌
+     */
+    @TableField("polical")
+    private String polical;
+
+
+    /**
+     * 政治面貌
+     */
+    @TableField("ssposition")
+    private String ssposition;
+
+
+    /**
+     * 政治面貌
+     */
+    @TableField("clposition")
+    private String clposition;
+
+    /**
+     * 亲属信息
+     */
+    @TableField("family")
+    private String family;
+
+    /**
      * 创建时间
      */
     @TableField(value = "create_time", fill = FieldFill.INSERT)
@@ -126,6 +194,97 @@ public class User implements Serializable {
     @TableField("version")
     private Integer version;
 
+    public String getSsposition() {
+        return ssposition;
+    }
+
+    public void setSsposition(String ssposition) {
+        this.ssposition = ssposition;
+    }
+
+    public String getClposition() {
+        return clposition;
+    }
+
+    public void setClposition(String clposition) {
+        this.clposition = clposition;
+    }
+
+    public static long getSerialVersionUID() {
+        return serialVersionUID;
+    }
+
+    public String getNation() {
+        return nation;
+    }
+
+    public void setNation(String nation) {
+        this.nation = nation;
+    }
+
+    public String getNatives() {
+        return natives;
+    }
+
+    public void setNatives(String natives) {
+        this.natives = natives;
+    }
+
+    public String getBuild() {
+        return build;
+    }
+
+    public void setBuild(String build) {
+        this.build = build;
+    }
+
+    public String getLiving() {
+        return living;
+    }
+
+    public void setLiving(String living) {
+        this.living = living;
+    }
+
+    public String getOrigin() {
+        return origin;
+    }
+
+    public void setOrigin(String origin) {
+        this.origin = origin;
+    }
+
+    public String getFamilyaddress() {
+        return familyaddress;
+    }
+
+    public void setFamilyaddress(String familyaddress) {
+        this.familyaddress = familyaddress;
+    }
+
+    public String getIdcard() {
+        return idcard;
+    }
+
+    public void setIdcard(String idcard) {
+        this.idcard = idcard;
+    }
+
+    public String getPolical() {
+        return polical;
+    }
+
+    public void setPolical(String polical) {
+        this.polical = polical;
+    }
+
+    public String getFamily() {
+        return family;
+    }
+
+    public void setFamily(String family) {
+        this.family = family;
+    }
 
     public Long getUserId() {
         return userId;

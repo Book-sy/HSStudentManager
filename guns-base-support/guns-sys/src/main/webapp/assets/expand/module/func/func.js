@@ -54,7 +54,7 @@ layui.define(['jquery', 'layer', 'admin', 'table', 'ax', 'form'], function (expo
         /**
          * 打开表单的弹框
          */
-        open: function (param) {
+        open: function (param,area) {
 
             //宽度计算
             var width = '1000px';
@@ -72,6 +72,10 @@ layui.define(['jquery', 'layer', 'admin', 'table', 'ax', 'form'], function (expo
                 }
             } else {
                 param.area = [width, clientHeight + "px"];
+            }
+
+            if(area!=null){
+                param.area = area;
             }
 
             param.skin = 'layui-layer-admin';

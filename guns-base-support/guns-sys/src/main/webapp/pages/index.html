@@ -6,12 +6,22 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">
     <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
     <link href="${ctxPath}/assets/expand/images/favicon.ico" rel="icon">
-    <title>HS请假系统</title>
+    <title>HS管理系统</title>
     <link rel="stylesheet" href="${ctxPath}/assets/common/libs/layui/css/layui.css?v=${constants.getReleaseVersion()}"/>
     <link rel="stylesheet" href="${ctxPath}/assets/common/module/admin.css?v=${constants.getReleaseVersion()}"/>
 </head>
 
 <body class="layui-layout-body">
+
+@/* 加入contextPath属性和session超时的配置 */
+<script type="text/javascript">
+    var Feng = {
+        ctxPath: "${ctxPath}",
+        version: '${constants.getReleaseVersion()}'
+    };
+</script>
+<script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
+<script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
 
 <div class="layui-layout layui-layout-admin">
 
@@ -32,15 +42,6 @@
 <!-- 加载动画，移除位置在common.js中 -->
 @include("/common/loading.html"){}
 
-@/* 加入contextPath属性和session超时的配置 */
-<script type="text/javascript">
-    var Feng = {
-        ctxPath: "${ctxPath}",
-        version: '${constants.getReleaseVersion()}'
-    };
-</script>
-<script type="text/javascript" src="${ctxPath}/assets/common/libs/layui/layui.js?v=${constants.getReleaseVersion()}"></script>
-<script type="text/javascript" src="${ctxPath}/assets/common/js/common.js?v=${constants.getReleaseVersion()}"></script>
 
 <script>
     layui.use(['layer', 'element', 'admin', 'index', 'ax'], function () {

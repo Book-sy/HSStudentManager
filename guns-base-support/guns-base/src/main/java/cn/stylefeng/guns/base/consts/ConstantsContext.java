@@ -94,7 +94,7 @@ public class ConstantsContext {
      * 获取管理系统名称
      */
     public static String getSystemName() {
-        return "HS请假系统";
+        return "HS管理系统";
     }
 
     /**

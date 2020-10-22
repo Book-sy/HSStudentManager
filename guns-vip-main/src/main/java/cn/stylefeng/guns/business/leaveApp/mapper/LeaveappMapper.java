@@ -5,6 +5,8 @@ import cn.stylefeng.guns.business.leaveApp.model.params.LeaveappParam;
 import cn.stylefeng.guns.business.leaveApp.model.params.SpQxParam;
 import cn.stylefeng.guns.business.leaveApp.model.result.LeaveappResult;
 import cn.stylefeng.guns.business.leaveApp.model.result.SpQxResult;
+import cn.stylefeng.guns.business.leaveApp.model.result.DeptResult;
+import cn.stylefeng.guns.business.score.model.params.ScoreParam;
 import com.baomidou.mybatisplus.core.mapper.BaseMapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import org.apache.ibatis.annotations.Param;
@@ -61,6 +63,14 @@ public interface LeaveappMapper extends BaseMapper<Leaveapp> {
      * @Date 2020-09-02
      */
     SpQxResult getCount();
+
+    /**
+     * 获取子部门
+     *
+     * @author 韩硕
+     * @Date 2020-09-02
+     */
+    List<DeptResult> getDept(@Param("paramCondition") SpQxParam spQxParam);
 
     /**
      * 获取分页map列表

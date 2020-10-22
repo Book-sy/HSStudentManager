@@ -17,6 +17,8 @@ package cn.stylefeng.guns.sys.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
 import cn.stylefeng.guns.base.auth.annotion.Permission;
+import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
+import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.log.BussinessLog;
 import cn.stylefeng.guns.base.pojo.node.LayuiTreeNode;
 import cn.stylefeng.guns.base.pojo.node.TreeviewNode;
@@ -44,6 +46,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -114,12 +117,24 @@ public class DeptController extends BaseController {
     @ResponseBody
     public List<LayuiTreeNode> layuiTree() {
 
+        LoginUser user = LoginContextHolder.getContext().getUser();
+
         List<LayuiTreeNode> list = this.deptService.layuiTree();
         list.add(LayuiTreeFactory.createRoot());
 
         DefaultTreeBuildFactory<LayuiTreeNode> treeBuildFactory = new DefaultTreeBuildFactory<>();
-        treeBuildFactory.setRootParentId("-1");
-        return treeBuildFactory.doTreeBuild(list);
+        treeBuildFactory.setRootParentId(user.getDeptId()+"");
+
+        for (LayuiTreeNode layuiTreeNode : list) {
+            if(layuiTreeNode.getId().equals(user.getDeptId())){
+                List<LayuiTreeNode> al = new ArrayList<>();
+                al.add(layuiTreeNode);
+                layuiTreeNode.setChildren(treeBuildFactory.doTreeBuild(list));
+                return al;
+            }
+        }
+
+        return null;
     }
 
     /**

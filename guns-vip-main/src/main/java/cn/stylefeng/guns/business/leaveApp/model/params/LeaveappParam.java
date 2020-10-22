@@ -36,6 +36,7 @@ public class LeaveappParam implements Serializable, BaseValidatingParam {
     //人工字段 意见传输
     private String yj;
     private Long deptId;
+    private Long dept;
 
     private String xiaoqu;
 

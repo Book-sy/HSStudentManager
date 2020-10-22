@@ -8,7 +8,7 @@ var UserInfoDlg = {
     }
 };
 
-layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function () {
+layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects', 'citypicker'], function () {
     var $ = layui.jquery;
     var $ax = layui.ax;
     var form = layui.form;
@@ -16,11 +16,26 @@ layui.use(['layer', 'form', 'admin', 'laydate', 'ax', 'formSelects'], function (
     var laydate = layui.laydate;
     var layer = layui.layer;
     var formSelects = layui.formSelects;
+    var cityPicker = layui.citypicker;
 
     //获取用户信息
     var ajax = new $ax(Feng.ctxPath + "/mgr/getUserInfo?userId=" + Feng.getUrlParam("userId"));
     var result = ajax.start();
     form.val('userForm', result.data);
+
+    new cityPicker("#natives", {
+        provincename: "provinceId",
+        cityname: "cityId",
+        districtname: "districtId",
+        level: 'cityId',
+    });
+
+    new cityPicker("#origin", {
+        provincename: "provinceId",
+        cityname: "cityId",
+        districtname: "districtId",
+        level: 'cityId',
+    });
 
     // 点击部门时
     $('#deptName').click(function () {

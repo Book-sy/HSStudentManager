@@ -25,6 +25,11 @@
     </resultMap>
 
     <!-- 通用查询结果列 -->
+    <select id="getDept" resultType="cn.stylefeng.guns.business.leaveApp.model.result.DeptResult"
+            parameterType="cn.stylefeng.guns.business.leaveApp.model.params.SpQxParam">
+        select dept_id AS "deptId", simple_name AS "simpleName" from sys_dept where pids like CONCAT('%$[', #{paramCondition.deptId} , '$]%') escape '$'
+    </select>
+
     <sql id="Base_Column_List">
         id AS "id", nature AS "nature",file AS "file" ,fileId AS "fileId", xueyuanlingdao AS "xueyuanlingdao", fudaoyuan AS "fudaoyuan",app_time AS "appTime",sys_user.user_id AS "userId", xiaoqu AS "xiaoqu", sushehao AS "sushehao", xueyuan AS "xueyuan", reason AS "reason", start_time AS "startTime", end_time AS "endTime", shenfenzheng AS "shenfenzheng", chuxingguiji AS "chuxingguiji", jinjilianxiren AS "jinjilianxiren", guanxi AS "guanxi", _leaveapp.phone AS "phone", address AS "address", xueyuanyijian AS "xueyuanyijian", time AS "time",otheryijian ,other, othertime, fudaoyuanyijian AS "fudaoyuanyijian", fudaoyuan_time AS "fudaoyuanTime"
     </sql>
@@ -35,10 +40,13 @@
 
     <select id="spQx" resultType="cn.stylefeng.guns.business.leaveApp.model.result.SpQxResult"
             parameterType="cn.stylefeng.guns.business.leaveApp.model.params.SpQxParam">
-        SELECT COUNT(*) AS "num"
+        SELECT COUNT(1) AS "num"
         FROM _leaveapp LEFT OUTER JOIN sys_user ON sys_user.user_id = _leaveapp.user_id LEFT OUTER JOIN sys_dept ON sys_dept.dept_id = sys_user.dept_id
         where (sys_dept.dept_id = #{paramCondition.deptId}
-        or sys_dept.dept_id in ( select dept_id from sys_dept where pids like CONCAT('%$[', #{paramCondition.deptId} , '$]%') escape '$' )) and _leaveapp.id = #{paramCondition.appId}
+        or sys_dept.dept_id in ( select dept_id from sys_dept where pids like CONCAT('%$[', #{paramCondition.deptId} , '$]%') escape '$' ))
+        <if test="paramCondition.appId != null and paramCondition.appId != ''">
+            and _leaveapp.id = #{paramCondition.appId}
+        </if>
     </select>
 
     <select id="customList" resultType="cn.stylefeng.guns.business.leaveApp.model.result.LeaveappResult"
@@ -93,12 +101,6 @@
         </if>
         <if test="paramCondition.time != null and paramCondition.time != ''">
             and time like CONCAT('%',#{paramCondition.time},'%')
-        </if>
-        <if test="paramCondition.banzhurenyijian != null and paramCondition.banzhurenyijian != ''">
-            and banzhurenyijian like CONCAT('%',#{paramCondition.banzhurenyijian},'%')
-        </if>
-        <if test="paramCondition.banzhurenTime != null and paramCondition.banzhurenTime != ''">
-            and banzhuren_time like CONCAT('%',#{paramCondition.banzhurenTime},'%')
         </if>
         <if test="paramCondition.fudaoyuanyijian != null">
             and fudaoyuanyijian like CONCAT(#{paramCondition.fudaoyuanyijian})
@@ -181,13 +183,13 @@
     <select id="customPageList" resultType="cn.stylefeng.guns.business.leaveApp.model.result.LeaveappResult"
             parameterType="cn.stylefeng.guns.business.leaveApp.model.params.LeaveappParam">
         select
-        <include refid="Base_Column_List"/> , sys_user.account AS "xh", sys_user.dept_id AS "dept_id", sys_dept.pid ,sys_dept.dept_id, simple_name AS "dn", sys_user.name AS "name",sys_user.phone AS "myPhone"
-        from _leaveapp LEFT OUTER  JOIN sys_user ON sys_user.user_id = _leaveapp.user_id LEFT OUTER JOIN sys_dept ON sys_dept.dept_id = sys_user.dept_id where 1 = 1
+        <include refid="Base_Column_List"/> , oth.name AS "otherName",sys_user.account AS "xh", sys_user.dept_id AS "dept_id", sys_dept.pid ,sys_dept.dept_id, simple_name AS "dn", sys_user.name AS "name",sys_user.phone AS "myPhone"
+        from _leaveapp LEFT OUTER  JOIN sys_user ON sys_user.user_id = _leaveapp.user_id LEFT OUTER JOIN sys_dept ON sys_dept.dept_id = sys_user.dept_id LEFT OUTER  JOIN sys_user AS oth ON oth.user_id = _leaveapp.other where 1 = 1
         <if test="paramCondition.id != null and paramCondition.id != ''">
             and id like CONCAT('%',#{paramCondition.id},'%')
         </if>
         <if test="paramCondition.userId != null and paramCondition.userId != ''">
-            and _leaveapp.user_id like CONCAT('%',#{paramCondition.userId},'%')
+            and _leaveapp.user_id = #{paramCondition.userId}
         </if>
         <if test="paramCondition.xiaoqu != null and paramCondition.xiaoqu != ''">
             and xiaoqu like CONCAT('%',#{paramCondition.xiaoqu},'%')

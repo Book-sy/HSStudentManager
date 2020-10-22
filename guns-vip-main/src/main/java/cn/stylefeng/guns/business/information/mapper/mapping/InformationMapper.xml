@@ -1,0 +1,131 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.business.information.mapper.InformationMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.business.information.entity.Information">
+        <id column="id" property="id" />
+        <result column="create_user" property="createUser" />
+        <result column="text" property="text" />
+        <result column="to_user" property="toUser" />
+        <result column="reades" property="reades" />
+        <result column="create_time" property="createTime" />
+        <result column="read_time" property="readTime" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        id AS "id", _information.create_user AS "createUser", text AS "text", to_user AS "toUser", reades AS "reades", _information.create_time AS "createTime", read_time AS "readTime"
+    </sql>
+
+
+    <select id="customList" resultType="cn.stylefeng.guns.business.information.model.result.InformationResult" parameterType="cn.stylefeng.guns.business.information.model.params.InformationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _information where 1 = 1
+            <if test="paramCondition.createTime != null and paramCondition.createTime != ''">
+                and create_time like CONCAT('%',#{paramCondition.createTime},'%')
+            </if>
+            <if test="paramCondition.createUser != null and paramCondition.createUser != ''">
+                and create_user like CONCAT('%',#{paramCondition.createUser},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.reades!= null">
+                and reades = #{paramCondition.reades}
+            </if>
+            <if test="paramCondition.readTime != null and paramCondition.readTime != ''">
+                and read_time like CONCAT('%',#{paramCondition.readTime},'%')
+            </if>
+            <if test="paramCondition.text != null and paramCondition.text != ''">
+                and text like CONCAT('%',#{paramCondition.text},'%')
+            </if>
+            <if test="paramCondition.toUser != null and paramCondition.toUser != ''">
+                and to_user = #{paramCondition.toUser}
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.business.information.model.params.InformationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _information where 1 = 1
+            <if test="paramCondition.createTime != null and paramCondition.createTime != ''">
+                and create_time like CONCAT('%',#{paramCondition.createTime},'%')
+            </if>
+            <if test="paramCondition.createUser != null and paramCondition.createUser != ''">
+                and create_user like CONCAT('%',#{paramCondition.createUser},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.reades!= null and paramCondition.reades!= ''">
+                and read like CONCAT('%',#{paramCondition.read},'%')
+            </if>
+            <if test="paramCondition.readTime != null and paramCondition.readTime != ''">
+                and read_time like CONCAT('%',#{paramCondition.readTime},'%')
+            </if>
+            <if test="paramCondition.text != null and paramCondition.text != ''">
+                and text like CONCAT('%',#{paramCondition.text},'%')
+            </if>
+            <if test="paramCondition.toUser != null and paramCondition.toUser != ''">
+                and to_user like CONCAT('%',#{paramCondition.toUser},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.business.information.model.result.InformationResult" parameterType="cn.stylefeng.guns.business.information.model.params.InformationParam">
+        select
+        <include refid="Base_Column_List"/> , sys_user.name AS "name"
+        from _information LEFT OUTER JOIN sys_user ON sys_user.user_id = _information.create_user
+        where 1 = 1
+            <if test="paramCondition.createTime != null and paramCondition.createTime != ''">
+                and create_time like CONCAT('%',#{paramCondition.createTime},'%')
+            </if>
+            <if test="paramCondition.createUser != null and paramCondition.createUser != ''">
+                and create_user like CONCAT('%',#{paramCondition.createUser},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.reades!= null">
+                and reades = #{paramCondition.reades}
+            </if>
+            <if test="paramCondition.readTime != null and paramCondition.readTime != ''">
+                and read_time like CONCAT('%',#{paramCondition.readTime},'%')
+            </if>
+            <if test="paramCondition.text != null and paramCondition.text != ''">
+                and text like CONCAT('%',#{paramCondition.text},'%')
+            </if>
+            <if test="paramCondition.toUser != null and paramCondition.toUser != ''">
+                and to_user = #{paramCondition.toUser}
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.business.information.model.params.InformationParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _information where 1 = 1
+            <if test="paramCondition.createTime != null and paramCondition.createTime != ''">
+                and create_time like CONCAT('%',#{paramCondition.createTime},'%')
+            </if>
+            <if test="paramCondition.createUser != null and paramCondition.createUser != ''">
+                and create_user like CONCAT('%',#{paramCondition.createUser},'%')
+            </if>
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.reades!= null and paramCondition.reades!= ''">
+                and read like CONCAT('%',#{paramCondition.read},'%')
+            </if>
+            <if test="paramCondition.readTime != null and paramCondition.readTime != ''">
+                and read_time like CONCAT('%',#{paramCondition.readTime},'%')
+            </if>
+            <if test="paramCondition.text != null and paramCondition.text != ''">
+                and text like CONCAT('%',#{paramCondition.text},'%')
+            </if>
+            <if test="paramCondition.toUser != null and paramCondition.toUser != ''">
+                and to_user like CONCAT('%',#{paramCondition.toUser},'%')
+            </if>
+    </select>
+
+</mapper>

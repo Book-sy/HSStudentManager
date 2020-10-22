@@ -84,6 +84,39 @@ public class UserFactory {
             if (ToolUtil.isNotEmpty(newUser.getPhone())) {
                 oldUser.setPhone(newUser.getPhone());
             }
+            if (ToolUtil.isNotEmpty(newUser.getNation())) {
+                oldUser.setNation(newUser.getNation());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getNatives())) {
+                oldUser.setNatives(newUser.getNatives());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getBuild())) {
+                oldUser.setBuild(newUser.getBuild());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getLiving())) {
+                oldUser.setLiving(newUser.getLiving());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getOrigin())) {
+                oldUser.setOrigin(newUser.getOrigin());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getFamilyaddress())) {
+                oldUser.setFamilyaddress(newUser.getFamilyaddress());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getIdcard())) {
+                oldUser.setIdcard(newUser.getIdcard());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getPolical())) {
+                oldUser.setPolical(newUser.getPolical());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getFamily())) {
+                oldUser.setFamily(newUser.getFamily());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getSsposition())) {
+                oldUser.setSsposition(newUser.getSsposition());
+            }
+            if (ToolUtil.isNotEmpty(newUser.getClposition())) {
+                oldUser.setClposition(newUser.getClposition());
+            }
             return oldUser;
         }
     }

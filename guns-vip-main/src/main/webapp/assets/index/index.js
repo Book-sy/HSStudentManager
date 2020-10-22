@@ -17,7 +17,7 @@ layui.use(['layer', 'carousel', 'table', 'admin', 'ax', 'func', 'laytpl', 'layda
         "buttonid": "qjsq",
         "zj": "总计递交单数：",
         "sl": "200 ",
-        "class": "layui-btn layui-btn"
+        "class": "layui-btn layui-btn-disabled"
     }, function (html) {
         document.getElementById('sqb').innerHTML = html;
     });
@@ -66,10 +66,10 @@ layui.use(['layer', 'carousel', 'table', 'admin', 'ax', 'func', 'laytpl', 'layda
             "title": "请假申请",
             "danwei": "单",
             "button": "开始申请",
-            "buttonid": "qjsq",
+            "buttonid": "qjsq"+'1',
             "zj": "总计递交单数：",
             "sl": data + ' ',
-            "class": "layui-btn layui-btn"
+            "class": "layui-btn layui-btn-disabled"
         }, function (html) {
             document.getElementById('sqb').innerHTML = html;
         });

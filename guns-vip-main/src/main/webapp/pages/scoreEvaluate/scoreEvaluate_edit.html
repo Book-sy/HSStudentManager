@@ -1,0 +1,51 @@
+@layout("/common/_form.html",{js:["/assets/scoreEvaluate/scoreEvaluate_edit.js"]}){
+
+<form class="layui-form" id="scoreEvaluateForm" lay-filter="scoreEvaluateForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">基本信息</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <input name="id" type="hidden"/>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">分数id<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="scoreId" name="scoreId" placeholder="请输入分数id" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">评价<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="evaluate" name="evaluate" placeholder="请输入评价" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">评价人<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="createUser" name="createUser" placeholder="请输入评价人" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">更新时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="updataTime" name="updataTime" placeholder="请输入更新时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                    <div class="layui-inline layui-col-md12">
+                        <label class="layui-form-label">评价时间<span style="color: red;">*</span></label>
+                        <div class="layui-input-block">
+                            <input id="createTime" name="createTime" placeholder="请输入评价时间" type="text" class="layui-input" lay-verify="required" required/>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}

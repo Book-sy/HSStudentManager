@@ -15,6 +15,7 @@
  */
 package cn.stylefeng.guns.sys.modular.system.model;
 
+import com.baomidou.mybatisplus.annotation.TableField;
 import lombok.Data;
 import org.springframework.format.annotation.DateTimeFormat;
 
@@ -45,5 +46,23 @@ public class UserDto {
     private String avatar;
 
     private String position;
+
+    private String clposition;
+    private String ssposition;
+
+    private String nation;
+    private String natives;
+    private String build;
+    private String living;
+    private String origin;
+    private String familyaddress;
+    private String idcard;
+    private String polical;
+    private String family;
+
+    private String father;
+    private String fatherphone;
+    private String mother;
+    private String motherphone;
 
 }

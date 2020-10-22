@@ -15,6 +15,7 @@
  */
 package cn.stylefeng.guns.sys.modular.system.controller;
 
+import cn.hutool.json.JSONObject;
 import cn.stylefeng.guns.base.auth.annotion.Permission;
 import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.guns.base.consts.ConstantsContext;
@@ -134,7 +135,13 @@ public class UserMgrController extends BaseController {
         }
 
         this.userService.assertAuth(userId);
-        return new SuccessResponseData(userService.getUserInfo(userId));
+
+        Map<String, Object> userInfo = userService.getUserInfo(userId);
+
+        JSONObject jsonObject = new JSONObject(userInfo.get("family"));
+        userInfo.putAll(jsonObject);
+
+        return new SuccessResponseData(userInfo);
     }
 
 
@@ -213,6 +220,7 @@ public class UserMgrController extends BaseController {
     @RequestMapping("/edit")
     @BussinessLog(value = "修改管理员", key = "account", dict = UserDict.class)
     @ResponseBody
+    @Permission({Const.ADMIN_NAME, Const.FDY_NAME, Const.BZ_NAME, Const.BZR_NAME, Const.FDYZL_NAME})
     public ResponseData edit(UserDto user) {
         this.userService.editUser(user);
         return SUCCESS_TIP;
@@ -260,7 +268,7 @@ public class UserMgrController extends BaseController {
      */
     @RequestMapping("/reset")
     @BussinessLog(value = "重置管理员密码", key = "userId", dict = UserDict.class)
-    @Permission(Const.ADMIN_NAME)
+    @Permission({Const.ADMIN_NAME, Const.FDY_NAME, Const.BZ_NAME, Const.BZR_NAME, Const.FDYZL_NAME})
     @ResponseBody
     public ResponseData reset(@RequestParam Long userId) {
         if (ToolUtil.isEmpty(userId)) {

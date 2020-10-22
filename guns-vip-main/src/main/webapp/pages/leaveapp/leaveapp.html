@@ -24,12 +24,20 @@
                                 <input type="checkbox" name="wsp" lay-filter="wsp" title="只看未审批">
                             </div>
                             <div class="layui-inline">
-                                <label class="layui-form-label">日期范围</label>
+                                <label class="layui-form-label" id="ss">班级筛选</label>
+                                <div class="layui-input-block">
+                                    <select name="city" lay-verify="required" lay-filter="bjsx" id="bjsx">
+                                        <option value=""></option>
+                                    </select>
+                                </div>
+                            </div>
+                            <div class="layui-inline">
+                                <label class="layui-form-label">导出Excel</label>
                                 <div class="layui-input-inline">
                                     <input type="text" class="layui-input" id="rq" placeholder="点击选择时间范围">
                                 </div>
+                                <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出</button>
                             </div>
-                            <button id="btnExp" class="layui-btn icon-btn"><i class="layui-icon">&#xe67d;</i>导出</button>
                             @}
                         </div>
                     </div>
@@ -61,7 +69,11 @@
     <a class="layui-btn layui-btn layui-btn-xs" lay-event="gj">查看轨迹</a>
 </script>
 <script type="text/html" id="cl">
+    {{# if(d.file != ''){ }}
     <a class="layui-btn layui-btn layui-btn-xs" lay-event="cl">下载材料</a>
+    {{# }else{ }}
+    <span style="color: #ba23d5; "><b>未上传</b></span>
+    {{# } }}
 </script>
 
 <script type="text/html" id="otheryijian">

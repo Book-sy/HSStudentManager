@@ -81,5 +81,6 @@ public class LeaveappResult implements Serializable {
     private String xh;
     private String name;
     private String myPhone;
+    private String otherName;
 
 }

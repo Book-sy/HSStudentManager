@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="cn.stylefeng.guns.business.score.mapper.ScoreMapper">
+
+    <!-- 通用查询映射结果 -->
+    <resultMap id="BaseResultMap" type="cn.stylefeng.guns.business.score.entity.Score">
+        <id column="id" property="id" />
+        <result column="type" property="type" />
+        <result column="user" property="user" />
+        <result column="score" property="score" />
+        <result column="ranking" property="ranking" />
+    </resultMap>
+
+    <!-- 通用查询结果列 -->
+    <sql id="Base_Column_List">
+        eveNum,id AS "id", type AS "type", user AS "user", score AS "score", ranking AS "ranking"
+    </sql>
+
+    <sql id="Nature_Column_List">
+        eveNum,_score.id AS "id", _score_type.name AS "type", user AS "user", score AS "score", ranking AS "ranking"
+    </sql>
+
+    <select id="eveplus">
+        UPDATE _score SET eveNum=eveNum+1 WHERE id=#{appId};
+    </select>
+
+    <select id="customList" resultType="cn.stylefeng.guns.business.score.model.result.ScoreResult" parameterType="cn.stylefeng.guns.business.score.model.params.ScoreParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _score where 1 = 1
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.ranking != null and paramCondition.ranking != ''">
+                and ranking like CONCAT('%',#{paramCondition.ranking},'%')
+            </if>
+            <if test="paramCondition.score != null and paramCondition.score != ''">
+                and score like CONCAT('%',#{paramCondition.score},'%')
+            </if>
+            <if test="paramCondition.type != null and paramCondition.type != ''">
+                and type like CONCAT('%',#{paramCondition.type},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+    </select>
+
+    <select id="customMapList" resultType="map" parameterType="cn.stylefeng.guns.business.score.model.params.ScoreParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _score where 1 = 1
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.ranking != null and paramCondition.ranking != ''">
+                and ranking like CONCAT('%',#{paramCondition.ranking},'%')
+            </if>
+            <if test="paramCondition.score != null and paramCondition.score != ''">
+                and score like CONCAT('%',#{paramCondition.score},'%')
+            </if>
+            <if test="paramCondition.type != null and paramCondition.type != ''">
+                and type like CONCAT('%',#{paramCondition.type},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+    </select>
+
+    <select id="customPageList" resultType="cn.stylefeng.guns.business.score.model.result.ScoreResult" parameterType="cn.stylefeng.guns.business.score.model.params.ScoreParam">
+        select
+        <include refid="Nature_Column_List"/>, sys_user.name AS "name", sys_dept.simple_name AS "classes"
+        from _score
+        LEFT OUTER JOIN sys_user ON sys_user.user_id = _score.user LEFT OUTER JOIN sys_dept ON sys_dept.dept_id = sys_user.dept_id
+        LEFT OUTER JOIN _score_type ON _score.type = _score_type.id
+        where 1 = 1
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id = #{paramCondition.id}
+            </if>
+            <if test="paramCondition.ranking != null and paramCondition.ranking != ''">
+                and ranking like CONCAT('%',#{paramCondition.ranking},'%')
+            </if>
+            <if test="paramCondition.score != null and paramCondition.score != ''">
+                and score like CONCAT('%',#{paramCondition.score},'%')
+            </if>
+            <if test="paramCondition.type != null and paramCondition.type != ''">
+                and type like CONCAT('%',#{paramCondition.type},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user = #{paramCondition.user}
+            </if>
+    </select>
+
+    <select id="customPageMapList" resultType="map" parameterType="cn.stylefeng.guns.business.score.model.params.ScoreParam">
+        select
+        <include refid="Base_Column_List"/>
+        from _score where 1 = 1
+            <if test="paramCondition.id != null and paramCondition.id != ''">
+                and id like CONCAT('%',#{paramCondition.id},'%')
+            </if>
+            <if test="paramCondition.ranking != null and paramCondition.ranking != ''">
+                and ranking like CONCAT('%',#{paramCondition.ranking},'%')
+            </if>
+            <if test="paramCondition.score != null and paramCondition.score != ''">
+                and score like CONCAT('%',#{paramCondition.score},'%')
+            </if>
+            <if test="paramCondition.type != null and paramCondition.type != ''">
+                and type like CONCAT('%',#{paramCondition.type},'%')
+            </if>
+            <if test="paramCondition.user != null and paramCondition.user != ''">
+                and user like CONCAT('%',#{paramCondition.user},'%')
+            </if>
+    </select>
+
+</mapper>

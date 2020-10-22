@@ -16,6 +16,7 @@
 package cn.stylefeng.guns.sys.modular.system.controller;
 
 import cn.hutool.core.bean.BeanUtil;
+import cn.hutool.json.JSONObject;
 import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.oshi.SystemHardwareInfo;
@@ -48,6 +49,7 @@ import java.io.UnsupportedEncodingException;
 import java.net.URLDecoder;
 import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 /**
  * 通用控制器
@@ -278,7 +280,12 @@ public class SystemController extends BaseController {
             throw new ServiceException(CoreExceptionEnum.NO_CURRENT_USER);
         }
 
-        return new SuccessResponseData(userService.getUserInfo(currentUser.getId()));
+        SuccessResponseData successResponseData = new SuccessResponseData(userService.getUserInfo(currentUser.getId()));
+
+        JSONObject jsonObject = new JSONObject(((Map)successResponseData.getData()).get("family"));
+        ((Map) successResponseData.getData()).putAll(jsonObject);
+
+        return successResponseData;
     }
 
     /**

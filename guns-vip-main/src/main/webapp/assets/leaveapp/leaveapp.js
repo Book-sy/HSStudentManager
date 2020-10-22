@@ -10,6 +10,28 @@ layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer', 'form', 'laydate']
     var laydate = layui.laydate;
 
 
+    var ajax = new $ax(Feng.ctxPath + "/leaveapp/getClasses", function (data) {
+        for (var i=0;i<data.length;i++)
+            $("#bjsx").append("<option value="+data[i].deptId+">"+data[i].simpleName+"</option>");
+        form.render();
+    }, function (data) {
+        Feng.error("班级列表查询失败！" + data.responseJSON.message + "!");
+    }).start();
+
+
+    form.on('select()', function(data){
+        console.log(data.elem);
+        console.log(data.value);
+        console.log(data.othis);
+
+        table.reload(Leaveapp.tableId, {
+            where: {
+                dept: data.value!=''?data.value:null
+            }
+        });
+    });
+
+
     //日期范围
     laydate.render({
         elem: '#rq'
@@ -53,6 +75,7 @@ layui.use(['table', 'admin', 'ax', 'func', 'upload', 'layer', 'form', 'laydate']
             {field: 'fudaoyuanyijian', title: '辅导员意见', templet: '#fudaoyuanyijian'},
             {field: 'fudaoyuanTime', title: '辅导员审批时间'},
             {field: 'otheryijian', title: '其他意见', templet: '#otheryijian'},
+            {field: 'otherName', title: '审批人'},
             {field: 'othertime', title: '意见审批时间'},
         ]];
         if (document.getElementById('var').value == 1) {

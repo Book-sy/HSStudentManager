@@ -1,6 +1,7 @@
 package cn.stylefeng.guns.sys.modular.system.service;
 
 import cn.hutool.core.collection.CollectionUtil;
+import cn.hutool.json.JSONObject;
 import cn.stylefeng.guns.base.auth.context.LoginContextHolder;
 import cn.stylefeng.guns.base.auth.model.LoginUser;
 import cn.stylefeng.guns.base.pojo.node.MenuNode;
@@ -86,7 +87,25 @@ public class UserService extends ServiceImpl<UserMapper, User> {
     public void editUser(UserDto user) {
         User oldUser = this.getById(user.getUserId());
 
-        if (LoginContextHolder.getContext().hasRole(Const.ADMIN_NAME)) {
+        JSONObject jsonObject = new JSONObject(user.getFamily());
+        if (user.getFather() != null && !user.getFather().equals("")) {
+            jsonObject.put("father", user.getFather());
+            user.setFamily(jsonObject.toString());
+        }
+        if (user.getMother() != null && !user.getMother().equals("")) {
+            jsonObject.put("mother", user.getMother());
+            user.setFamily(jsonObject.toString());
+        }
+        if (user.getFatherphone() != null && !user.getFatherphone().equals("")) {
+            jsonObject.put("fatherphone", user.getFatherphone());
+            user.setFamily(jsonObject.toString());
+        }
+        if (user.getMotherphone() != null && !user.getMotherphone().equals("")) {
+            jsonObject.put("motherphone", user.getMotherphone());
+            user.setFamily(jsonObject.toString());
+        }
+
+        if (LoginContextHolder.getContext().hasAnyRoles(Const.ADMIN_NAME+","+ Const.FDY_NAME+","+ Const.BZ_NAME+","+ Const.BZR_NAME+","+ Const.FDYZL_NAME)) {
             this.updateById(UserFactory.editUser(user, oldUser));
         } else {
             this.assertAuth(user.getUserId());

@@ -1,0 +1,33 @@
+@layout("/common/_container.html",{js:["/assets/scoreEvaluate/scoreEvaluate_admineve.js"]}){
+
+<style>
+    .laytable-cell-1-0-3 {
+        height: auto !important;
+        max-height: 80px;
+        margin-left:10px;overflow-y:scroll; overflow-x:scroll;
+    }
+</style>
+
+<div class="layui-body-header">
+    <span class="layui-body-header-title">管理</span>
+</div>
+
+<div class="layui-fluid">
+    <div class="layui-row layui-col-space15">
+        <div class="layui-col-sm12 layui-col-md12 layui-col-lg12">
+            <div class="layui-card">
+                <div class="layui-card-body">
+                    <div class="layui-form toolbar">
+                        <div class="layui-form-item">
+                            <div class="layui-inline">
+                                <button id="btnAdd" class="layui-btn icon-btn"><i class="layui-icon">&#xe654;</i>评价</button>
+                            </div>
+                        </div>
+                    </div>
+                    <table class="layui-table" id="scoreEvaluateTable" lay-filter="scoreEvaluateTable"></table>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+@}

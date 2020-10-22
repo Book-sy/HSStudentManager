@@ -31,10 +31,10 @@ layui.use(['layer', 'form', 'table', 'ztree', 'laydate', 'admin', 'ax', 'func', 
             {field: 'userId', hide: true, sort: true, title: '用户id'},
             {field: 'account', align: "center", sort: true, title: '账号'},
             {field: 'name', align: "center", sort: true, title: '姓名'},
-            {field: 'deptName', align: "center", sort: true, title: '部门'},
-            {field: 'positionName', align: "center", sort: true, title: '职位'},
-            {field: 'phone', align: "center", sort: true, title: '电话', minWidth: 117},
-            {field: 'createTime', align: "center", sort: true, title: '创建时间', minWidth: 160},
+            {field: 'deptName', align: "center", sort: true, title: '班级'},
+            {field: 'positionName', align: "center", sort: true, title: '权限'},
+            /*{field: 'phone', align: "center", sort: true, title: '电话', minWidth: 117},
+            {field: 'createTime', align: "center", sort: true, title: '创建时间', minWidth: 160},*/
             {field: 'status', align: "center", sort: true, templet: '#statusTpl', title: '状态'},
             {align: 'center', toolbar: '#tableBar', title: '操作', minWidth: 280}
         ]];

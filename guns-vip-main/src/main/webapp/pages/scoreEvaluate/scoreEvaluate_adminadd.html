@@ -1,0 +1,22 @@
+@layout("/common/_form.html",{js:["/assets/scoreEvaluate/scoreEvaluate_adminadd.js"],plugins:["ue"]}){
+
+<form class="layui-form" id="scoreEvaluateForm" lay-filter="scoreEvaluateForm">
+    <div class="layui-fluid" style="padding-bottom: 75px;">
+        <div class="layui-card">
+            <div class="layui-card-header">评价</div>
+            <div class="layui-card-body">
+                <div class="layui-form-item layui-row">
+                    <input name="id" type="hidden"/>
+                            <script id="evaluate" name="evaluate" type="text/plain"></script>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="form-group-bottom text-center">
+        <button class="layui-btn" lay-filter="btnSubmit" lay-submit>&emsp;提交&emsp;</button>
+        <button type="reset" class="layui-btn layui-btn-primary" ew-event="closeDialog">&emsp;取消&emsp;</button>
+    </div>
+
+</form>
+
+@}
